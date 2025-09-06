@@ -171,8 +171,9 @@ export const AboutSection = () => {
             after-outline-2 after:-outline-offset-2 
             after:rounded-full after:outline-gray-950/30">
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-20 animate-ping [aniamation-duration:2s]"></div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10"></div>
-              <Image src={smileMemoji} alt="Smile Memoji" className="size-20"/>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10 overflow-hidden">
+                <Image src={smileMemoji} alt="Smile Memoji" className="size-20"/>
+              </div>
             </div>
           </Card>
           </div>
