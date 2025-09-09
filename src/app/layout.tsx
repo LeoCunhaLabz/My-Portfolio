@@ -13,8 +13,8 @@ const calistoga = Calistoga({
 })
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
-  description: "Enjoy it!",
+  title: "Leonardo Cunha's Portfolio",
+  description: "From idea to MVP: SaaS, APIs, and automations with clear scope, milestone delivery, and documented hand-off.",
 };
 
 export default function RootLayout({
