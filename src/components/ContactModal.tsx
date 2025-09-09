@@ -2,6 +2,9 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import WhatsAppSvg from '@/assets/icons/whatsapp.svg'
+import EmailSvg from '@/assets/icons/email.svg'
+import LinkedinSvg from '@/assets/icons/linkedin.svg'
 
 type Props = {
   open: boolean
@@ -14,13 +17,11 @@ export default function ContactModal({ open, onClose }: Props) {
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
   const ANIM_MS = 220
 
-  // sync visible state with prop to allow exit animation
   useEffect(() => {
     if (open) {
       setVisible(true)
       setClosing(false)
     } else if (visible) {
-      // start closing animation
       setClosing(true)
       const t = setTimeout(() => {
         setVisible(false)
@@ -30,12 +31,10 @@ export default function ContactModal({ open, onClose }: Props) {
     }
   }, [open, visible])
 
-  // focus management and ESC handling
   useEffect(() => {
     if (!visible) return
 
     const prevActive = document.activeElement as HTMLElement | null
-    // focus first actionable link
     setTimeout(() => firstLinkRef.current?.focus(), 50)
 
     function onKey(e: KeyboardEvent) {
@@ -85,44 +84,32 @@ export default function ContactModal({ open, onClose }: Props) {
           <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-stretch md:justify-between">
             <a
               ref={firstLinkRef}
-              href="https://wa.me/0000000000"
+              href="https://wa.me/5511972181112"
               target="_blank"
               rel="noreferrer"
               className="flex-1 inline-flex items-center gap-3 justify-center px-4 py-4 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 md:flex-col md:gap-2 md:py-6"
             >
-              {/* WhatsApp SVG */}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-700 w-5 h-5 md:w-12 md:h-12">
-                <path d="M21 15a4 4 0 0 1-4 4h-1l-3 1 1-3v-1a4 4 0 0 1 4-4h3z"/>
-                <path d="M3 21l1-4a9 9 0 1 1 4 4l-4 1z"/>
-              </svg>
+              <WhatsAppSvg className="text-emerald-700 w-5 h-5 md:w-12 md:h-12" />
               <span className="font-medium">WhatsApp</span>
             </a>
 
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:leonardovalcesio@gmail.com"
               target="_blank"
               rel="noreferrer"
               className="flex-1 inline-flex items-center gap-3 justify-center px-4 py-4 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 md:flex-col md:gap-2 md:py-6"
             >
-              {/* Email SVG */}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-sky-700 w-5 h-5 md:w-12 md:h-12">
-                <path d="M4 4h16v16H4z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
+              <EmailSvg className="text-emerald-700 w-5 h-5 md:w-12 md:h-12" />
               <span className="font-medium">Email</span>
             </a>
 
             <a
-              href="https://www.linkedin.com/in/your-profile"
+              href="https://www.linkedin.com/in/leonardovcunha"
               target="_blank"
               rel="noreferrer"
               className="flex-1 inline-flex items-center gap-3 justify-center px-4 py-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 md:flex-col md:gap-2 md:py-6"
             >
-              {/* LinkedIn SVG */}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700 w-5 h-5 md:w-12 md:h-12">
-                <rect x="2" y="2" width="20" height="20" rx="2" ry="2" />
-                <path d="M16 11.5a2 2 0 0 1 4 0v6h-4v-6zM6 9h4v9H6zM8 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
-              </svg>
+              <LinkedinSvg className="text-emerald-700 w-5 h-5 md:w-12 md:h-12" />
               <span className="font-medium">LinkedIn</span>
             </a>
           </div>

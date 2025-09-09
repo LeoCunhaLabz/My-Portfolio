@@ -41,7 +41,7 @@ const portfolioProjects = [
       { title: "MVP delivery under 6 weeks." },
       { title: "Maps, PagSeguro and OAuth integrations." },
     ],
-    link: "https://ofertarelampago.app.br/",
+    link: "",
     image: flashProject,
   },
 ];
