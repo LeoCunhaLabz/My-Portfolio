@@ -1,49 +1,48 @@
-import darkSaasLandingPage from "@/assets/images/dark-saas-landing-page.png";
-import lightSaasLandingPage from "@/assets/images/light-saas-landing-page.png";
-import aiStartupLandingPage from "@/assets/images/ai-startup-landing-page.png";
+import airticlesProject from "@/assets/images/airticles-note.png";
+import flashProject from "@/assets/images/flash-note.png";
+import softwareProject from "@/assets/images/software-note.png";
 import Image from "next/image";
 import CheckCircleIcon from "@/assets/icons/check-circle.svg";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
-import grainImage from '@/assets/images/grain.jpg';
 import { SectionHeader } from "@/components/sectionHeader";
 import { Card } from "@/components/Card";
 
 const portfolioProjects = [
   {
-    company: "Acme Corp",
-    year: "2022",
-    title: "Dark Saas Landing Page",
+    company: "AIrticles",
+    year: "2025",
+    title: "AI‑Powered Article Generation SaaS",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      { title: "Ships SEO-ready posts for blogs." },
+      { title: "Full-stack delivery + deploy on AWS." },
+      { title: "WordPress, OAuth, and Stripe integrations." },
     ],
-    link: "https://youtu.be/4k7IdSLxh6w",
-    image: darkSaasLandingPage,
+    link: "https://www.airticles.ai/",
+    image: airticlesProject,
   },
   {
-    company: "Innovative Co",
-    year: "2021",
-    title: "Light Saas Landing Page",
+    company: "Desktop Software",
+    year: "2024",
+    title: " AI-Optimized River Modeling",
     results: [
-      { title: "Boosted sales by 20%" },
-      { title: "Expanded customer reach by 35%" },
-      { title: "Increased brand awareness by 15%" },
+      { title: "Simulates effluent dispersion in rivers." },
+      { title: "Proprietary AI optimization engine." },
+      { title: "Python GUI + model + AI optimization." },
     ],
-    link: "https://youtu.be/7hi5zwO75yc",
-    image: lightSaasLandingPage,
+    link: "",
+    image: softwareProject,
   },
   {
-    company: "Quantum Dynamics",
-    year: "2023",
-    title: "AI Startup Landing Page",
+    company: "Flash Offers",
+    year: "2024",
+    title: "Location-Based Deals SaaS",
     results: [
-      { title: "Enhanced user experience by 40%" },
-      { title: "Improved site speed by 50%" },
-      { title: "Increased mobile traffic by 35%" },
+      { title: "Geo-filtered, time-limited offers." },
+      { title: "MVP delivery under 6 weeks." },
+      { title: "Maps, PagSeguro and OAuth integrations." },
     ],
-    link: "https://youtu.be/Z7I5uSRHMHg",
-    image: aiStartupLandingPage,
+    link: "https://ofertarelampago.app.br/",
+    image: flashProject,
   },
 ];
 
@@ -54,15 +53,17 @@ export const ProjectsSection = () => {
       <SectionHeader 
         eyebrow="Real-world Results" 
         title="Featured Projects" 
-        description="Here are some of the projects I have worked on:" 
+        description="Some projects I have worked on:" 
       />
       <div className="flex flex-col mt-10 gap-20 md:mt-20">
-        {portfolioProjects.map((project, projectIndex) =>(
+        {portfolioProjects.map((project, projectIndex) => {
+        const hasLink = project.link && project.link.trim().length > 0;
+        return (
         <Card 
         key={project.title} 
         className="px-8 pt-8 pb-0 md:pt-12 md:px-10 lg:pt-16 lg:px-20 sticky"
         style={{
-          top: `calc(64px + ${projectIndex * 40}px`
+          top: `calc(64px + ${projectIndex * 40}px)`
         }}
         >
           <div className="lg:grid lg:grid-cols-2 lg:gap-16">
@@ -84,11 +85,16 @@ export const ProjectsSection = () => {
               </li>
               ))}
             </ul>
-            <a href={project.link}>
-              <button className="bg-white text-gray-950 h-12 w-full rounded-xl font-semibold
-              inline-flex items-center justify-center gap-2 mt-8 md:w-auto px-6">
-                <span>View Live Site</span>
-                <ArrowUpRightIcon  className = "size-4"/>
+            <a
+              href={hasLink ? project.link : '#contact'}
+              {...(hasLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              <button
+                className="bg-white text-gray-950 h-12 w-full rounded-xl font-semibold
+              inline-flex items-center justify-center gap-2 mt-8 md:w-auto px-6"
+              >
+                <span>{hasLink ? 'View Live Site' : 'Request a demo'}</span>
+                {hasLink && <ArrowUpRightIcon className="size-4" />}
               </button>
             </a>
             </div>
@@ -96,8 +102,9 @@ export const ProjectsSection = () => {
               <Image src={project.image} alt={project.title} className="mt-8 -mb-4 md:-mb-0 lg:mt-0 lg:absolute lg:h-full lg:w-auto lg:max-w-none"/>
             </div>
           </div>
-        </Card>
-        ))}
+  </Card>
+  );
+  })}
       </div>
     </div>
   </section>

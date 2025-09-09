@@ -93,7 +93,7 @@ export const HeroSection = () => {
             </span>
           </h1>
           <p className="mt-4 text-center text-white/60 md:text-lg">
-            I specialize in transforming ideas into functional, high-performing MVPs.
+            I bring ideas to life by creating functional, high-performing MVPs.
           </p>
         </div>
       <HeroCTAs className="mt-8" />
