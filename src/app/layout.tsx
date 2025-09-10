@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: "Leonardo Cunha",
     images: [
       {
-        url: "https://www.leonardo-cunha.com/portfolio-og.jpg",
+        url: "https://www.leonardo-cunha.com/portfolio-og.png",
         width: 1812,
         height: 996,
         alt: "Portfolio preview",
