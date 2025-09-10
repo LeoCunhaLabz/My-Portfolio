@@ -23,8 +23,7 @@ export const metadata: Metadata = {
     siteName: "Leonardo Cunha",
     images: [
       {
-        // caminho RELATIVO → será resolvido usando metadataBase
-        url: "/assets/images/portfolio-og.jpg",
+        url: "https://www.leonardo-cunha.com/portfolio-og.jpg",
         width: 1812,
         height: 996,
         alt: "Portfolio preview",
