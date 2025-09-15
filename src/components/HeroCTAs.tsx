@@ -11,7 +11,7 @@ export const HeroCTAs: React.FC<{ className?: string }> = ({ className = "" }) =
         aria-label="Explore my work - jump to projects"
         className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 rounded-xl"
       >
-        <span className="font-semibold">Explore My Work</span>
+        <span className="font-semibold">Explore My Works</span>
         <ArrowDown className="size-4" />
       </a>
 
