@@ -1,0 +1,40 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      # next and eslint-config-next must stay on the same version
+      nextjs:
+        patterns:
+          - next
+          - eslint-config-next
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # Majors that need their own planned migration (see README)
+      - dependency-name: tailwindcss
+        update-types: ["version-update:semver-major"]
+      - dependency-name: tailwind-merge
+        update-types: ["version-update:semver-major"]
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      - dependency-name: framer-motion
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@vercel/*"
+        update-types: ["version-update:semver-major"]
+      # Types follow the Node.js version pinned in engines
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      github-actions:
+        patterns:
+          - "*"
