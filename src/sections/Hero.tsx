@@ -1,103 +1,87 @@
-import ProfileFlip from "@/components/ProfileFlip"
+import Image from "next/image"
 import HeroCTAs from "@/components/HeroCTAs"
-import grainImage from "@/assets/images/grain.jpg"
-import StarIcon from "@/assets/icons/star.svg"
-import SparkleIcon from "@/assets/icons/sparkle.svg"
-import { HeroOrbit } from "@/components/HeroOrbit"
-import Typewriter from "@/components/Typewriter"
+import profilePhoto from "@/assets/images/profile-photo.jpg"
+import MapPinIcon from "@/assets/icons/map-pin.svg"
+import GitHubIcon from "@/assets/icons/github.svg"
+import LinkedInIcon from "@/assets/icons/linkedin-mark.svg"
+import MailIcon from "@/assets/icons/mail.svg"
+
+const heroLinks = [
+  {
+    title: "GitHub",
+    href: "https://github.com/LeoCunhaLabz",
+    icon: GitHubIcon,
+  },
+  {
+    title: "LinkedIn",
+    href: "https://www.linkedin.com/in/leonardovcunha/",
+    icon: LinkedInIcon,
+  },
+  {
+    title: "Email",
+    href: "mailto:dev@leonardo-cunha.com",
+    icon: MailIcon,
+  },
+]
 
 export const HeroSection = () => {
   return (
-  <div id="home" className="py-32 md:py-48 lg:py-60 relative z-0 overflow-x-clip">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, transparent, black 10%, black 70%, transparent)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent, black 10%, black 70%, transparent)",
-        }}
-      >
-        <div 
-          className="absolute inset-0 -z-30 opacity-5" 
-          style={{
-          backgroundImage: `url(${grainImage.src})`,
-        }}
-        ></div>
-        <div className="size-[620px] hero-ring"></div>
-        <div className="size-[820px] hero-ring"></div>
-        <div className="size-[1020px] hero-ring"></div>
-        <div className="size-[1220px] hero-ring"></div>
-        {/* 
-        shouldOrbit = false,
-        shouldSpin = false,
-        spinDuration,
-        orbitDurations
-        */}
-        <HeroOrbit size={390} rotation={-20} shouldOrbit orbitDuration="26s" shouldSpin spinDuration="3s">
-              <SparkleIcon className="size-8 text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={490} rotation={-42} shouldOrbit orbitDuration="36s">
-              <div className="size-2 rounded-full bg-emerald-300/20"></div>
-        </HeroOrbit>
-        <HeroOrbit size={530} rotation={180} shouldOrbit orbitDuration="39s" shouldSpin spinDuration="3s">
-              <SparkleIcon className="size-10 text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={550} rotation={20} shouldOrbit orbitDuration="42s" shouldSpin spinDuration="6s">
-              <StarIcon className="size-12 text-emerald-300" />
-        </HeroOrbit>
-        <HeroOrbit size={610} rotation={92} shouldOrbit orbitDuration="45s" shouldSpin spinDuration="6s">
-              <StarIcon className="size-8 text-emerald-300" />
-        </HeroOrbit>
-        <HeroOrbit size={650} rotation={-10} shouldOrbit orbitDuration="48s">
-              <div className="size-2 rounded-full bg-emerald-300/20"></div>
-        </HeroOrbit>
-        <HeroOrbit size={710} rotation={150} shouldOrbit orbitDuration="51s" shouldSpin spinDuration="3s">
-              <SparkleIcon className="size-10 text-emerald-300/20" />
-        </HeroOrbit>
-        <HeroOrbit size={800} rotation={-80} shouldOrbit orbitDuration="54s" shouldSpin spinDuration="6s">
-              <StarIcon className="size-28 text-emerald-300" />
-        </HeroOrbit>
-      </div>
-  <div className="container relative z-10">
-        <div className="flex flex-col items-center">
-        <div className="max-w-lg mx-auto">
-          <h1 className="font-serif text-4xl md:text-6xl text-center my-8 tracking-wide">Leonardo Cunha</h1>
-        </div>
+    <section id="home" className="relative z-0 overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32">
+      <div className="container">
+        {/* Phones and tablets: small portrait next to the name. Desktop: text on the left, portrait on the right. */}
+        <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-x-4 md:grid-cols-[112px_minmax(0,1fr)] md:gap-x-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-x-16">
+          <h1 className="col-start-2 row-start-1 self-end text-lg font-semibold md:text-xl lg:col-start-1 lg:self-auto">
+            Leonardo Cunha
+          </h1>
 
-          <ProfileFlip size={150} className="size-[100px]" alt="Person in a laptop" />
-        </div>
-        <div className="flex justify-center w-full">
-          <div className="bg-gray-950 border border-gray-800 px-4 py-1.5 inline-flex items-center gap-4 rounded-lg">
-            <div className="bg-green-500 size-2.5 rounded-full relative">
-              <div className="absolute inset-0 bg-green-500 animate-ping-large rounded-full"></div>
+          <p className="col-span-2 col-start-1 row-start-3 mt-6 font-serif text-[34px] leading-[1.15] md:text-5xl md:leading-[1.1] lg:col-span-1 lg:row-start-2 lg:mt-4 lg:text-[56px]">
+            Software Engineer building <span className="text-emerald-300">reliable SaaS products.</span>
+          </p>
+
+          <p className="col-span-2 col-start-1 row-start-4 mt-4 leading-relaxed text-white/70 md:max-w-xl md:text-lg lg:col-span-1 lg:row-start-3 lg:mt-6">
+            I work with TypeScript, Node.js, and React across product interfaces, APIs, and integrations. My experience includes AI-powered workflows, production reliability, and collaboration with US product teams.
+          </p>
+
+          <p className="col-start-2 row-start-2 mt-1.5 flex items-center gap-1.5 self-start text-sm text-white/60 lg:col-start-1 lg:row-start-4 lg:mt-5 lg:gap-2 lg:text-[15px]">
+            <MapPinIcon className="size-4 shrink-0" aria-hidden="true" />
+            <span>Based in São Paulo, Brazil.</span>
+          </p>
+
+          <HeroCTAs className="col-span-2 col-start-1 row-start-5 mt-7 lg:col-span-1 lg:mt-8" />
+
+          <ul className="col-span-2 col-start-1 row-start-6 mt-3 flex flex-wrap items-center justify-center gap-x-6 md:justify-start lg:col-span-1 lg:mt-4">
+            {heroLinks.map((link) => (
+              <li key={link.title}>
+                <a
+                  href={link.href}
+                  {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="inline-flex min-h-11 items-center gap-2 rounded text-[15px] font-medium text-white/70 transition-colors hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+                >
+                  <link.icon className="size-[18px]" aria-hidden="true" />
+                  <span>{link.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="relative col-start-1 row-span-2 row-start-1 self-center lg:col-start-2 lg:row-span-6 lg:rounded-[32px] lg:border lg:border-white/15 lg:bg-gray-800 lg:p-2.5">
+            {/* Static rings around the portrait, kept from the previous hero without the motion. */}
+            <div className="pointer-events-none" aria-hidden="true">
+              <div className="hero-ring -z-10 size-[220px] lg:size-[520px]"></div>
+              <div className="hero-ring -z-10 size-[340px] lg:size-[700px]"></div>
+              <div className="hero-ring -z-10 size-[460px] lg:size-[880px]"></div>
+              <div className="hero-ring -z-10 hidden size-[1060px] lg:block"></div>
             </div>
-            <div className="text-sm font-medium">Available for new projects</div>
+            <Image
+              src={profilePhoto}
+              alt="Portrait of Leonardo Cunha"
+              preload
+              sizes="(min-width: 1200px) 338px, (min-width: 768px) 112px, 88px"
+              className="size-[88px] rounded-[22px] border border-white/15 object-cover md:size-28 md:rounded-3xl lg:size-[338px] lg:border-0"
+            />
           </div>
         </div>
-        <div className="max-w-lg mx-auto">
-          <h1 className="font-serif text-xl md:text-4xl text-center mt-8 tracking-wide">
-            <span className="block">Building Exceptional</span>
-            <span className="block text-emerald-300 mt-2">
-              <Typewriter
-                items={[
-                  'User Experiences',
-                  'B2B SaaS',
-                  'High-converting MVPs',
-                  'Accessible Interfaces',
-                ]}
-                typingSpeed={70}
-                deletingSpeed={40}
-                pauseTime={1600}
-              />
-            </span>
-          </h1>
-          <p className="mt-4 text-center text-white/60 md:text-lg">
-            I bring ideas to life by creating functional, high-performing MVPs.
-          </p>
-        </div>
-      <HeroCTAs className="mt-8" />
       </div>
-    </div>
+    </section>
   );
 };
