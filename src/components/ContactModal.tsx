@@ -14,22 +14,31 @@ type Props = {
 export default function ContactModal({ open, onClose }: Props) {
   const [visible, setVisible] = useState(open)
   const [closing, setClosing] = useState(false)
+  const [prevOpen, setPrevOpen] = useState(open)
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
   const ANIM_MS = 220
 
-  useEffect(() => {
+  // Sync with the `open` prop during render instead of in an effect
+  // https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+  if (open !== prevOpen) {
+    setPrevOpen(open)
     if (open) {
       setVisible(true)
       setClosing(false)
     } else if (visible) {
       setClosing(true)
-      const t = setTimeout(() => {
-        setVisible(false)
-        setClosing(false)
-      }, ANIM_MS)
-      return () => clearTimeout(t)
     }
-  }, [open, visible])
+  }
+
+  // Unmount once the closing animation has finished
+  useEffect(() => {
+    if (!closing) return
+    const t = setTimeout(() => {
+      setVisible(false)
+      setClosing(false)
+    }, ANIM_MS)
+    return () => clearTimeout(t)
+  }, [closing])
 
   useEffect(() => {
     if (!visible) return
