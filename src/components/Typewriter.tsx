@@ -56,8 +56,11 @@ export default function Typewriter({
         }, deletingSpeed);
       } else {
         // finished deleting, move to next
-        setIsDeleting(false);
-        setIndex((i) => i + 1);
+        timeout = window.setTimeout(() => {
+          if (!mounted.current) return;
+          setIsDeleting(false);
+          setIndex((i) => i + 1);
+        }, 0);
         if (!loop && index + 1 >= items.length) {
           // stop looping — leave empty and do not advance further
         }
