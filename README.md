@@ -38,7 +38,7 @@ Then open http://localhost:3000.
 src/
   app/          layout (metadata, fonts, analytics), home page (section order, JSON-LD) and global styles
   sections/     one component per page section: Header, Hero, Projects, Tape, Testimonials, About, Blog, Contact, Footer
-  components/   shared pieces such as Card, SectionHeader, ContactModal and Typewriter
+  components/   shared pieces such as Card, SectionHeader, ContactModal and HeroCTAs
   assets/
     icons/      SVG icons, imported as React components
     images/     images (most rendered through next/image)

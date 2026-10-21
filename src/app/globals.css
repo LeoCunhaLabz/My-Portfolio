@@ -21,21 +21,3 @@
         @apply lg:max-w-5xl
     }
 }
-
-/* Typewriter cursor */
-@layer components {
-    .typewriter-root {
-        @apply inline-flex items-center;
-    }
-
-    .typewriter-cursor {
-        @apply ml-1 text-emerald-300;
-        animation: blink 1s steps(2, start) infinite;
-    }
-
-    @keyframes blink {
-        0% { opacity: 1 }
-        50% { opacity: 0 }
-        100% { opacity: 1 }
-    }
-}
