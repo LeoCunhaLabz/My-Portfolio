@@ -1,0 +1,69 @@
+import { Facts, Fact, Quote } from "@/components/CaseStudy";
+import { RiverSimulatorDiagram } from "@/components/diagrams/RiverSimulatorDiagram";
+
+## At a glance
+
+<Facts>
+  <Fact label="What">A Windows desktop app that simulates how effluents affect a river's water quality and optimizes where they are discharged and how much they are treated.</Fact>
+  <Fact label="Client">An environmental engineering PhD researcher.</Fact>
+  <Fact label="Role">Sole developer: the model in code, the optimizer, the desktop interface, tests, packaging and the user manual.</Fact>
+  <Fact label="When">December 2024 to February 2025, with a second version in October 2025.</Fact>
+  <Fact label="Stack">Python, PyQt5, Matplotlib, pandas and XlsxWriter · PyInstaller for the executable · unittest.</Fact>
+  <Fact label="Results">Two versions delivered. The study and its findings belong to the researcher.</Fact>
+</Facts>
+
+## The problem
+
+Deciding where sewage may be discharged into a river, and how much it must be treated first, depends on how the river absorbs that load downstream. Models such as QUAL-UFMG describe that process, from the decay of organic matter to reaeration and the mixing of tributaries, but running many scenarios by hand is slow, and searching for the best combination of discharge points and treatment levels is impractical without software. The researcher needed a tool that could run those scenarios and search them automatically.
+
+## My role
+
+I was the only developer. I turned the QUAL-UFMG model into Python code and built the genetic algorithm that searches the scenarios, the PyQt5 interface, the charts and exports, the automated tests and a 30-page manual, then packaged everything as a Windows executable. The water-quality model is QUAL-UFMG's, and the study and its conclusions are the researcher's.
+
+## What I built
+
+- **River model:** the main river and each tributary are split into short segments, 100 m by default, and each segment updates flow, velocity, depth, BOD and dissolved oxygen from the one before it, with temperature-corrected decay and reaeration rates.
+- **Scenarios:** rivers, tributaries, effluents and water intakes, each saved as a JSON file that can be edited in the app or in a text editor. A project is saved and imported as a folder.
+- **Optimizer:** a multi-objective genetic algorithm. Each candidate sets the discharge point and treatment efficiency of every effluent chosen for optimization, and is scored on up to five objectives: total treatment effort, inequity between sources, the best stretch for each source, and violations of the dissolved oxygen and BOD limits for the river's CONAMA class.
+- **Results:** charts of oxygen, BOD and flow along the river, a Pareto front to choose from, and CSV and Excel export of every solution or of one chosen solution.
+- **Version 2, October 2025:** dilution-flow analysis, the flow available for water-use permits, and charts that compare optimized and non-optimized runs.
+- **Packaging:** a single Windows executable built with PyInstaller, so the researcher runs it without installing Python.
+
+## Architecture
+
+The app is a set of small Python modules: the river model, the simulation, the genetic algorithm, the scoring functions and the PyQt5 screens. A normal run simulates one scenario. An optimized run wraps the same simulation in the genetic algorithm, so every candidate is a full simulation of the river.
+
+<RiverSimulatorDiagram />
+
+## Key decisions
+
+| Decision | Why | Trade-off |
+| --- | --- | --- |
+| A Pareto front instead of one weighted score | The objectives conflict, so the researcher chooses among the trade-offs instead of the code hiding them in weights | More solutions to read; near-duplicates are filtered out, and up to five of them carry over to each new generation |
+| Mutation per gene, not per candidate | Each discharge point and each treatment level can change on its own | The rate needs tuning; the manual recommends 0.5% to 1% |
+| One JSON file per river, tributary and effluent | Scenarios can be edited in the app or in a text editor, and new elements need no code change | A project is a folder of many small files |
+| A single executable | The researcher runs it without installing Python | A file of more than 60 MB for each release |
+
+## Challenges
+
+**Every candidate is a full simulation.** With the default settings, 300 candidates over 100 generations, one optimized run simulates the river about 30,000 times. The app reports progress while it runs, and the manual explains how population size, mutation rate and the number of generations trade speed for quality, so the researcher can size each run.
+
+**Rivers that feed rivers.** A tributary changes the main river where it joins, so tributaries are simulated first, and their flow, BOD and oxygen at the confluence enter the main river as inputs. Effluents can sit on the main river or on any tributary.
+
+## How I know it works
+
+- 22 automated tests with unittest, covering the model's coefficients, the river simulation, the Pareto front, the genetic operators, saving and loading results, and full optimization runs.
+- A second version followed in October 2025.
+- The researcher's own words, below.
+
+## Results
+
+The software was delivered in early 2025, with a second version in October 2025. It has no usage metrics, and the scientific results it produced are the researcher's, not mine.
+
+<Quote author="Tatiana C." role="PhD candidate, Environmental Engineering">Leonardo showed commitment and professionalism from the very first contact. He was very attentive and patient, going over the project information as many times as necessary. Excellent professional.</Quote>
+
+## What I learned
+
+- **Show the trade-offs; don't hide them.** When objectives conflict, a Pareto front lets the expert choose. A single weighted score would have made that choice for her, inside the code.
+- **Name the code after the model.** Variables follow the model's own terms, BOD, DO, K1 and K2, so the code can be checked against the model's equations.
+- **Explain the knobs.** A genetic algorithm only helps if the person running it knows what population size, mutation rate and generations do. The manual spends a whole section on that.

@@ -1,0 +1,74 @@
+import { Facts, Fact } from "@/components/CaseStudy";
+import { AirticlesPipelineDiagram } from "@/components/diagrams/AirticlesPipelineDiagram";
+
+## At a glance
+
+<Facts>
+  <Fact label="What">Airticles SEO, a B2B SaaS that generates SEO articles with images and publishes them to customers' WordPress sites.</Fact>
+  <Fact label="Role">Built the first version of the product, frontend and backend: the generation pipeline, sign-in and billing, a CTA generator and a conversion-tracking pixel. Then operated the pipeline in production.</Fact>
+  <Fact label="Team">Five people: a product lead, the project owner, me as the developer, and two developers who joined later.</Fact>
+  <Fact label="When">January to August 2025, as a consultant through Novva Solutions.</Fact>
+  <Fact label="Stack">TypeScript, Node.js, React and AWS · OpenAI, Freepik, Pexels and WordPress · Stripe and OAuth.</Fact>
+  <Fact label="Results">100+ paying customers, 7.5K+ articles (9M+ words), 22K+ images and 100K+ views during my eight months, with 99%+ uptime.</Fact>
+</Facts>
+
+## The problem
+
+Businesses that rely on search traffic need a steady flow of SEO content, but writing, illustrating and publishing each article by hand is slow and expensive. AIrticles set out to turn that into a product: the customer picks a keyword, and the platform delivers a finished article on their WordPress site.
+
+## My role
+
+I joined as the only developer and built the first version of the product, frontend and backend. I then ran its generation and publishing pipeline in production and maintained its external integrations. Two more developers joined later, and I onboarded them: the product, the codebase and how to run it. From then on, I kept the article generation core and the pipeline's optimization, while they built the WordPress integration and plugin under my supervision and improved the frontend.
+
+## What I built
+
+- **Generation pipeline:** each article is built in stages instead of one long prompt: keywords, then an outline, then the introduction, then the body and conclusion, and finally a reviewer agent that checks coherence and reading level. Text comes from OpenAI.
+- **Images, SEO and indexing:** the same core adds images from Freepik and Pexels, 22K+ in total, and handles each article's SEO and indexing.
+- **CTA generator:** creates the calls to action placed in the articles.
+- **Tracking pixel:** a proprietary pixel that measures conversions and how readers respond to the CTAs.
+- **Accounts and billing:** OAuth sign-in and Stripe payments.
+- **Publishing:** articles go straight to the customer's WordPress site, through a plugin the two developers who joined later built under my supervision.
+
+## Architecture
+
+A React frontend talks to a TypeScript and Node.js backend on AWS. Each article moves through the pipeline stage by stage, calling OpenAI for text, Freepik and Pexels for images, and the customer's WordPress site to publish.
+
+<AirticlesPipelineDiagram />
+
+## Key decisions
+
+| Decision | Why | Trade-off |
+| --- | --- | --- |
+| Generate each article in stages, not in one prompt | Each stage has one job and builds on the one before, so the outline shapes the text | More calls to the model per article |
+| A reviewer agent before publishing | Catch incoherent text or the wrong reading level before it reaches a paying customer's site | One more step, and more cost, for every article |
+| Retries on every external call | OpenAI, the image banks and WordPress fail intermittently | A retry can hide a real failure, so every one has to be monitored |
+| Idempotent workflows | A retried step must never publish the same article twice | Every step needs a stable key |
+
+## Challenges
+
+**Keeping a chain of external APIs reliable.** Every article depends on several services in sequence (OpenAI, Freepik, Pexels and the customer's WordPress site), and any of them can time out or fail. The answer was to retry every external call, make each workflow idempotent so a retry never publishes an article twice, and add structured monitoring. Uptime stayed above 99%.
+
+**Going from one developer to three.** I built the first version alone, so the product, the codebase and how to run it lived with me. When two developers joined, I onboarded them and split the work: I kept the generation core and the pipeline's optimization, and they took the WordPress integration and plugin, under my supervision, and the frontend.
+
+## How I know it works
+
+- 99%+ uptime while I operated the platform.
+- Structured monitoring of the pipeline and its external calls.
+- A reviewer agent checks every article for coherence and reading level before it is published.
+
+## Results
+
+During my eight months on the project, from January to August 2025:
+
+- **100+ paying customers.**
+- 7.5K+ SEO articles (9M+ words) and 22K+ images generated.
+- 100K+ views on the published articles.
+- 99%+ uptime.
+
+These are the platform's numbers while I was on it. The company kept growing after I left, and its later numbers aren't mine.
+
+## What I learned
+
+- **Give the model one job at a time.** Each stage of the pipeline, from keywords to the final review, asks for one thing and builds on what came before. That is easier to control and to fix than one long prompt.
+- **A retry is only safe if it can run twice.** Retries kept the pipeline up, but only because every workflow was idempotent. Without that, a timeout could publish the same article twice.
+- **Code is only done when someone else can run it.** I built the first version alone. Onboarding two developers onto it was the real test of whether the product, the codebase and its setup made sense to anyone but me.
