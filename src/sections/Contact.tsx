@@ -4,6 +4,7 @@ import { useState } from "react"
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg"
 import grainImage from "@/assets/images/grain.jpg"
 import ContactModal from "@/components/ContactModal"
+import { resumeHref } from "@/content/resume"
 
 export const ContactSection = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -26,17 +27,27 @@ export const ContactSection = () => {
                 </p>
               </div>
 
-              <div>
+              <div className="flex shrink-0 flex-col gap-3">
                 <button
                   type="button"
                   onClick={() => setIsOpen(true)}
-                  className="text-white bg-gray-900 inline-flex items-center px-6 h-12 rounded-xl gap-2 w-max border border-gray-900 cursor-pointer z-10"
+                  className="text-white bg-gray-900 inline-flex items-center justify-center px-6 h-12 rounded-xl gap-2 w-full border border-gray-900 cursor-pointer z-10"
                   aria-haspopup="dialog"
                   aria-expanded={isOpen}
                 >
                   <span className="font-semibold">Contact Me</span>
                   <ArrowUpRightIcon className="size-4"/>
                 </button>
+                <a
+                  href={resumeHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-900 inline-flex items-center justify-center px-6 h-12 rounded-xl gap-2 w-full border border-gray-900 transition-colors hover:bg-gray-900/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900"
+                >
+                  <span className="font-semibold">View résumé</span>
+                  <span className="sr-only">(PDF, opens in a new tab)</span>
+                  <ArrowUpRightIcon className="size-4" aria-hidden="true"/>
+                </a>
               </div>
             </div>
         </div>

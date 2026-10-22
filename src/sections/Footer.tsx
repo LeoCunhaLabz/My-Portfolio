@@ -1,4 +1,5 @@
 import ArrowUpRightIcon from '@/assets/icons/arrow-up-right.svg'
+import { resumeHref } from '@/content/resume'
 
 const footerLinks = [
   {
@@ -8,6 +9,10 @@ const footerLinks = [
   {
     title: "LinkedIn",
     href:"https://www.linkedin.com/in/leonardovcunha/"
+  },
+  {
+    title: "Résumé",
+    href: resumeHref
   }
 ]
 
