@@ -1,3 +1,5 @@
+import createMDX from "@next/mdx";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   turbopack: {
@@ -29,4 +31,12 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+// Case studies are MDX files in src/content, imported by the /projects pages.
+// Plugins are passed by name so Turbopack can load them; remark-gfm adds tables.
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: ["remark-gfm"],
+  },
+});
+
+export default withMDX(nextConfig);

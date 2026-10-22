@@ -1,0 +1,79 @@
+import { Facts, Fact } from "@/components/CaseStudy";
+import { OnyxArchitectureDiagram } from "@/components/diagrams/OnyxArchitectureDiagram";
+
+## At a glance
+
+<Facts>
+  <Fact label="What">ONYX, a powerlifting training log for Brazilian lifters. Free, in Portuguese, works offline.</Fact>
+  <Fact label="Role">Solo project: product, design, frontend, backend, data and deployment.</Fact>
+  <Fact label="When">June 2026 to present.</Fact>
+  <Fact label="Stack">React 19, TypeScript and Vite (PWA) · Fastify 5, PostgreSQL 16, Drizzle ORM and Zod · Astro 5 · Docker, Nginx and GitHub Actions.</Fact>
+  <Fact label="Status">Deployed at onyxtreino.com.br, before its public launch. No usage numbers yet.</Fact>
+</Facts>
+
+## The problem
+
+Lifters who train squat, bench press and deadlift three to five times a week usually log their training in a spreadsheet or in their coach's PDF. Between sets, they do the math by hand: today's load as a percentage of their max, an estimated max from reps and effort, the plates to load on the bar.
+
+Generic apps such as Strong and Hevy are in English and don't speak the sport's language. None of them compares a lifter's strength with people who actually competed in Brazil.
+
+## My role
+
+I built ONYX alone, from the product definition to production. That covers the product decisions, the interface and design system, the React app, the API and database, the data pipeline and the deployment.
+
+I work one issue at a time: each change starts as a written issue, gets a plan, and ships as one focused pull request that merges only when lint, tests and build pass. I use AI coding agents (Claude Code and GitHub Copilot) to plan and implement those issues, following conventions documented in the repository, and I review every change.
+
+## What I built
+
+- **Logging made for the gym floor:** sets with weight, reps and RPE; warm-up, working and drop sets; a rest timer; a plate calculator inside the set row.
+- **Training math:** estimated 1RM from RPE using the RTS table, with Brzycki as a fallback; DOTS, Wilks and IPF GL scores; loads prescribed by %1RM or by RPE.
+- **Routines and programs:** built-in templates such as Wendler 5/3/1 and Madcow 5x5, plus the lifter's own.
+- **Progress:** analytics, history, records and a calendar, built only from what the lifter logged.
+- **"How strong are you":** percentiles against Brazilian raw competitors from the last ten years, from OpenPowerlifting's public data.
+- **A public landing site:** free calculators that work without an account and carry the result into sign-up.
+
+## Architecture
+
+ONYX is a monorepo with three apps and a shared package. The React app is a PWA that saves everything on the device first and syncs in the background with a Fastify API backed by PostgreSQL. The Astro landing site reuses the app's calculation functions, so a result on the public calculator matches the app. The API's validation schemas are checked against the shared domain types at compile time.
+
+<OnyxArchitectureDiagram />
+
+## Key decisions
+
+| Decision | Why | Trade-off |
+| --- | --- | --- |
+| Offline-first: save locally, sync in the background | Gyms have weak signal, and logging a set should never wait for the network | Resolving conflicts between devices becomes the app's job |
+| One sync rule for every entity: last-write-wins by update time, with soft deletes and tombstones | Simple to reason about and to test | When two devices edit the same item, only the newest edit survives |
+| Shared domain types, with the API's Zod schemas checked against them at compile time | A field added on the client can't be silently dropped by the API | Every new field touches two places in the same pull request |
+| Calculations as pure functions shared by the app and the landing site | One source of truth for every formula, easy to unit test | The landing build depends on the app's code |
+| Percentiles precomputed from a public data dump and refreshed by hand every quarter | No runtime dependency or cost, and the data stays attributable | Numbers can be up to a few months old |
+| No CSS framework or animation library | Fewer dependencies to maintain and full control of the design system | More hand-written CSS |
+
+## Challenges
+
+**Sync that lost data.** The first version of sync treated workouts as append-only and let each device send its full list of custom exercises. In production, that lost data in two ways: edits and deletions of workouts were discarded, and a device with an old list could permanently delete exercises created on another device.
+
+I replaced it with one contract for every entity: last-write-wins by update time, inside a database transaction. Deletions became soft deletes and tombstones, so a late push from an old device can't bring a deleted workout back. The decision logic lives in a pure module, tested against the exact cases that had lost data, plus integration tests for the sync route.
+
+**Numbers the app can't back up.** A training app is tempting to fill with charts and comparisons from day one. ONYX shows only what the lifter's data supports: with no history, it says it doesn't know yet. Totals and estimated maxes say whether they are current or all-time bests, and scores like DOTS appear only after bodyweight and sex are set.
+
+## How I know it works
+
+- 500+ automated test cases: calculations, sync merging and the data pipeline (Vitest), API routes (Node's test runner), and end-to-end tests of the main flow and the sign-up handoff (Playwright).
+- Every pull request runs lint, tests and build for the app, the API and the landing site. Deploys run the same gate again, then a smoke test against the live app and API.
+- Accessibility rules in the design system: WCAG AA contrast, 40 px touch targets, 16 px inputs, and reduced motion respected.
+
+## Results
+
+ONYX runs in production at onyxtreino.com.br but hasn't launched publicly yet, so this case claims no usage numbers. What it does show:
+
+- Four months of continuous delivery: more than 180 merged pull requests by October 21, 2026.
+- Cross-device sync that went through a real data-loss bug and is now covered by tests.
+- A data pipeline that turns the full OpenPowerlifting dump (about 800 MB of CSV) into a small percentile table, with attribution.
+
+## What I learned
+
+- **Design sync for the worst device, not the typical one.** My first version of sync assumed every device was up to date, and a device with an old list deleted exercises created on another. Now every sync rule assumes a device can be late, offline or out of date.
+- **"I don't know yet" builds more trust than a pretty chart.** With little data, it's tempting to show progress anyway. ONYX hides scores and trends until the lifter's own history supports them, and says so.
+- **AI agents are only as good as the conventions you write down.** I use coding agents throughout the project. What keeps their work reviewable is a documented architecture and set of rules, and one issue per pull request.
+- **Subtraction made the product clearer.** Removing decorative effects from the landing site and the app made the numbers and the main actions easier to read at a glance.
