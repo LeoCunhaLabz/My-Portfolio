@@ -41,7 +41,7 @@ src/
     projects/   /projects (list of case studies) and /projects/[slug] (one case study)
     blog/       /blog (list of posts), /blog/[slug] (one post) and /blog/feed.xml (RSS feed)
   sections/     one component per page section: Header, Hero, Experience, Projects, Tape, About, Blog, Testimonials, Contact, Footer
-  components/   shared pieces such as Card, SectionHeader, ContactModal, HeroCTAs, PostCard and the case study blocks
+  components/   shared pieces such as Card, SectionHeader, ContactModal, HeroCTAs, PostCard, SiteAnalytics and the case study blocks
     diagrams/   the SVG diagrams used in the case studies
   content/
     projects/   index.ts (each project's card data) and one <slug>.mdx case study per project
@@ -54,6 +54,16 @@ src/
     images/     images (most rendered through next/image)
 public/         files served as they are, such as the Open Graph image and the CV
 ```
+
+## Analytics
+
+Vercel Web Analytics and Speed Insights, both on the free Hobby plan. The numbers are only visible in the Vercel dashboard; the site has no public counter or metrics endpoint. `src/components/SiteAnalytics.tsx` wraps the analytics component ([#7](https://github.com/LeoCunhaLabz/My-Portfolio/issues/7)):
+
+- **Own visits:** a browser opened once with `?notrack=1` on any page stops sending page views; `?notrack=0` turns it back on. The flag lives in that browser's local storage, so set it on each browser and device, and again after clearing site data. Private windows are counted.
+- **CV:** the PDF is a static file, which the analytics script never sees. Every click on a link to it is counted as a page view of `/resume`.
+- **Routes:** page views carry the route (for example `/projects/[slug]`) besides the path.
+
+Hobby keeps the details for the last 31 days, with no custom events or UTM parameters.
 
 ## Environment variables
 
