@@ -2,7 +2,6 @@
 
 import { SectionHeader } from "@/components/sectionHeader";
 import { Card } from "@/components/Card";
-import bookImage from "@/assets/images/book-cover.jpg";
 import Image from "next/image";
 import JavascriptIcon from "@/assets/icons/square-js.svg";
 import HTMLIcon from "@/assets/icons/html5.svg";
@@ -115,32 +114,46 @@ export const AboutSection = () => {
       <div className="container">
         <SectionHeader
         eyebrow="About Me"
-        title="A Glimpse Into My World"
-        description="Learn more about who I am, what I do and what inspires me."
+        title="How I Work"
+        description="My approach, my background and a little about life outside the code."
         />
-        <div className="mt-20 flex flex-col gap-6">
+        <div className="mt-20 flex flex-col gap-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-5 lg:grid-cols-3">
-            <Card className="h-[320px] md:col-span-2 lg:col-span-1">
-              <CardHeader
-                title="My Reads"
-                description="A curated list of books that have influenced my thinking and work."
-              />
-              <div className="w-40 mx-auto mt-2 md:mt-0">
-                <Image src={bookImage} alt="Book cover" />
+            <Card className="p-6 md:col-span-3 md:p-10 lg:col-span-2">
+              <div className="flex flex-col gap-5 text-lg leading-relaxed text-white/80 lg:text-xl">
+                <p>
+                  I enjoy working across the boundaries of a product: understanding what users need, shaping the data and API contracts, and building the interfaces around them.
+                </p>
+                <p>
+                  My background combines software engineering, automation, and business analysis, which helps me connect implementation decisions to the problem the team is solving.
+                </p>
               </div>
             </Card>
-            <Card className="h-[320px] md:col-span-3 lg:col-span-2">
+            <Card className="h-[240px] p-0 md:col-span-2 md:h-auto md:min-h-[320px] lg:col-span-1">
+              <Image src={mapImage} alt="Map of São Paulo" className="absolute inset-0 h-full w-full object-cover object-left-top"/>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+              size-20 rounded-full after:content-[''] 
+              after:absolute after:inset-0 after:outline 
+              after-outline-2 after:-outline-offset-2 
+              after:rounded-full after:outline-gray-950/30">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-20 animate-ping [aniamation-duration:2s]"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10 overflow-hidden">
+                  <Image src={smileMemoji} alt="Smile Memoji" className="size-20"/>
+                </div>
+              </div>
+            </Card>
+          </div>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            <Card className="h-[320px] lg:col-span-1">
               <CardHeader
                 title="My Toolbox"
-                description="Explore the technologies and tools I use to craft exceptional digital experiences."
+                description="The technologies I use most in my day-to-day work."
                 className=""
               />
               <ToolboxItems items={toolboxItems} className="" itemsWrapperClassName="animate-move-left [animation-duration:30s]"/>
               <ToolboxItems items={toolboxItems} className="mt-6" itemsWrapperClassName="animate-move-right [animation-duration:15s]"/>
             </Card>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 lg:grid-cols-3">
-          <Card className="h-[320px] p-0 flex flex-col md:col-span-3 lg:col-span-2">
+          <Card className="h-[320px] p-0 flex flex-col lg:col-span-2">
             <CardHeader
               title="Beyond the Code"
               description="Explore my interests and hobbies beyond the digital realm."
@@ -161,19 +174,6 @@ export const AboutSection = () => {
                   <span>{hobby.emoji}</span>
                 </motion.div>
               ))}
-            </div>
-          </Card>
-          <Card className="h-[320px] p-0 md:col-span-2 lg:col-span-1">
-            <Image src={mapImage} alt="Map" className="h-full w-full object-cover object-left-top"/>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-            size-20 rounded-full after:content-[''] 
-            after:absolute after:inset-0 after:outline 
-            after-outline-2 after:-outline-offset-2 
-            after:rounded-full after:outline-gray-950/30">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-20 animate-ping [aniamation-duration:2s]"></div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10 overflow-hidden">
-                <Image src={smileMemoji} alt="Smile Memoji" className="size-20"/>
-              </div>
             </div>
           </Card>
           </div>

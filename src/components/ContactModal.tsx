@@ -82,7 +82,7 @@ export default function ContactModal({ open, onClose }: Props) {
             </div>
             <button
               onClick={onClose}
-              aria-label="Fechar"
+              aria-label="Close"
               className="ml-auto text-gray-500 hover:text-gray-800 focus:outline-none"
             >
               ×
@@ -103,7 +103,7 @@ export default function ContactModal({ open, onClose }: Props) {
             </a>
 
             <a
-              href="mailto:leonardovalcesio@gmail.com"
+              href="mailto:dev@leonardo-cunha.com"
               target="_blank"
               rel="noreferrer"
               className="flex-1 inline-flex items-center gap-3 justify-center px-4 py-4 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 md:flex-col md:gap-2 md:py-6"

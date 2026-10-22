@@ -20,10 +20,10 @@ export const ContactSection = () => {
 
             <div className="flex flex-col gap-8 items-center md:flex-row md:gap-16">
               <div>
-                <h2 className="font-serif text-2xl md:text-3xl">Lets create something amazing together</h2>
-                <p className="text-sm mt-2 md:text-base">Ready to bring your next project to life? Lets connect and discuss
-                  how I can help you achieve your goals.
-                </p>  
+                <h2 className="font-serif text-2xl md:text-3xl">Let&apos;s connect.</h2>
+                <p className="text-sm mt-2 md:text-base">
+                  If you&apos;re hiring a software engineer with experience in SaaS, integrations, and AI-powered workflows, I&apos;d be glad to learn about your team.
+                </p>
               </div>
 
               <div>

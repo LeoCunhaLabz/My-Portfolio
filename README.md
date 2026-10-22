@@ -63,8 +63,8 @@ All content lives in the components, so an update is a code change reviewed in a
 - **Projects on the home page:** the `portfolioProjects` array in `src/sections/Projects.tsx`. Add the screenshot to `src/assets/images/` and import it at the top of the file. An empty `link` shows "Request a demo" instead of "View Live Site".
 - **Case studies:** add the project to the `projects` array in `src/content/projects/index.ts` (the order there is the order on `/projects`), then write `src/content/projects/<slug>.mdx` with the same `slug`. The page `/projects/<slug>` is generated at build time; a slug without an entry in the array is a 404. Use `Facts`, `Fact` and `Quote` from `src/components/CaseStudy.tsx` for the "At a glance" list and testimonials, and `DiagramFigure` from `src/components/diagrams/` for diagrams.
 - **Testimonials:** the `testimonials` array in `src/sections/Testimonials.tsx`.
-- **Toolbox and hobbies:** the `toolboxItems` and `hobbies` arrays in `src/sections/About.tsx`. Icons go in `src/assets/icons/`.
-- **Hero text and contact links:** `src/sections/Hero.tsx`, `src/components/ContactModal.tsx` and `src/sections/Footer.tsx`.
+- **About:** the text, plus the `toolboxItems` and `hobbies` arrays, in `src/sections/About.tsx`. Icons go in `src/assets/icons/`.
+- **Hero and contact text, and contact links:** `src/sections/Hero.tsx`, `src/sections/Contact.tsx`, `src/components/ContactModal.tsx` and `src/sections/Footer.tsx`.
 - **SEO:** `metadata` in `src/app/layout.tsx`, the Open Graph image (`public/og-image.jpg`, 1200×630) and the structured data (`personJsonLd`) in `src/app/page.tsx`.
 - **Blog posts:** not published yet; the Blog section is a placeholder. Posts will be MDX files in this repository ([#5](https://github.com/LeoCunhaLabz/My-Portfolio/issues/5)).
 - **CV:** not on the site yet ([#8](https://github.com/LeoCunhaLabz/My-Portfolio/issues/8)).
