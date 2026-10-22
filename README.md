@@ -44,11 +44,12 @@ src/
     diagrams/   the SVG diagrams used in the case studies
   content/
     projects/   index.ts (each project's card data) and one <slug>.mdx case study per project
+    resume.ts   the path of the public CV
   mdx-components.tsx   styles for the markdown in the MDX files (required by Next.js)
   assets/
     icons/      SVG icons, imported as React components
     images/     images (most rendered through next/image)
-public/         files served as they are, such as the Open Graph image
+public/         files served as they are, such as the Open Graph image and the CV
 ```
 
 ## Environment variables
@@ -66,7 +67,7 @@ All content lives in the components, so an update is a code change reviewed in a
 - **Hero and contact text, and contact links:** `src/sections/Hero.tsx`, `src/sections/Contact.tsx`, `src/components/ContactModal.tsx` and `src/sections/Footer.tsx`.
 - **SEO:** `metadata` in `src/app/layout.tsx`, the Open Graph image (`public/og-image.jpg`, 1200×630) and the structured data (`personJsonLd`) in `src/app/page.tsx`.
 - **Blog posts:** not published yet; the Blog section is a placeholder. Posts will be MDX files in this repository ([#5](https://github.com/LeoCunhaLabz/My-Portfolio/issues/5)).
-- **CV:** not on the site yet ([#8](https://github.com/LeoCunhaLabz/My-Portfolio/issues/8)).
+- **CV:** `public/Leonardo_Cunha_CV.pdf`, linked from the hero, the contact section and the footer through `resumeHref` in `src/content/resume.ts`. To update it, export the new version in English as a PDF with selectable text and working links, check that it uses the public email (dev@leonardo-cunha.com), and replace the file keeping the same name, so links shared earlier keep working. If the roles or the numbers change, update `src/sections/Experience.tsx` and the case studies in the same pull request. The cover letter is not published.
 
 Keep source images at about twice their largest displayed size. `next/image` serves 1x and 2x versions based on the source width, so oversized files are served oversized.
 
