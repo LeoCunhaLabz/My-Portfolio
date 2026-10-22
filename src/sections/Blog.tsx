@@ -6,7 +6,7 @@ export const BlogSection = () => {
     <section id="blog" className="py-20 lg:py-28">
       <div className="container">
         <SectionHeader
-          eyebrow="Thoughts"
+          eyebrow="Writing"
           title="Blog"
           description="I'm preparing long-form posts about design, frontend architecture and product — coming soon."
         />

@@ -1,6 +1,6 @@
 # Leonardo Cunha — Portfolio
 
-Source code of [leonardo-cunha.com](https://www.leonardo-cunha.com), my personal portfolio. It is a single page with my projects, client testimonials, an about section and contact options.
+Source code of [leonardo-cunha.com](https://www.leonardo-cunha.com), my personal portfolio. It is a single page with my experience, selected projects, an about section, recommendations and contact options.
 
 ## Stack
 
@@ -37,7 +37,7 @@ Then open http://localhost:3000.
 ```text
 src/
   app/          layout (metadata, fonts, analytics), home page (section order, JSON-LD) and global styles
-  sections/     one component per page section: Header, Hero, Projects, Tape, Testimonials, About, Blog, Contact, Footer
+  sections/     one component per page section: Header, Hero, Experience, Projects, Tape, About, Blog, Testimonials, Contact, Footer
   components/   shared pieces such as Card, SectionHeader, ContactModal and HeroCTAs
   assets/
     icons/      SVG icons, imported as React components
@@ -53,11 +53,12 @@ None. The site does not read any environment variable today. If one is added, do
 
 All content lives in the components, so an update is a code change reviewed in a pull request.
 
+- **Experience:** the `experiences` array in `src/sections/Experience.tsx`, newest role first.
 - **Projects:** the `portfolioProjects` array in `src/sections/Projects.tsx`. Add the screenshot to `src/assets/images/` and import it at the top of the file. An empty `link` shows "Request a demo" instead of "View Live Site".
 - **Testimonials:** the `testimonials` array in `src/sections/Testimonials.tsx`.
 - **Toolbox and hobbies:** the `toolboxItems` and `hobbies` arrays in `src/sections/About.tsx`. Icons go in `src/assets/icons/`.
 - **Hero text and contact links:** `src/sections/Hero.tsx`, `src/components/ContactModal.tsx` and `src/sections/Footer.tsx`.
-- **SEO:** `metadata` in `src/app/layout.tsx` and the structured data (`personJsonLd`) in `src/app/page.tsx`.
+- **SEO:** `metadata` in `src/app/layout.tsx`, the Open Graph image (`public/og-image.jpg`, 1200×630) and the structured data (`personJsonLd`) in `src/app/page.tsx`.
 - **Blog posts:** not published yet; the Blog section is a placeholder. Posts will be MDX files in this repository ([#5](https://github.com/LeoCunhaLabz/My-Portfolio/issues/5)).
 - **CV:** not on the site yet ([#8](https://github.com/LeoCunhaLabz/My-Portfolio/issues/8)).
 
