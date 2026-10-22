@@ -7,7 +7,7 @@ export const ProjectEyebrow = ({ project, showName = false }: { project: Project
   );
 
   return (
-    <p className="flex flex-wrap gap-x-2 bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-sm font-bold uppercase tracking-widest text-transparent">
+    <p className="flex flex-wrap gap-x-2 text-sm font-bold uppercase tracking-widest text-emerald-300">
       {items.map((item, index) => (
         <span key={item} className="inline-flex gap-2">
           <span>{item}</span>
