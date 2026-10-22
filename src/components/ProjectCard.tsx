@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
 import { Card } from "@/components/Card";
+import { PhoneCarousel } from "@/components/PhoneCarousel";
 import { ProjectEyebrow, StackList } from "@/components/ProjectEyebrow";
 import type { Project } from "@/content/projects";
 
@@ -19,17 +20,18 @@ const CardFact = ({ label, children }: { label: string; children: ReactNode }) =
 
 export const ProjectCard = ({ project, headingLevel = "h3" }: { project: Project; headingLevel?: "h2" | "h3" }) => {
   const Heading = headingLevel;
-  const { image, result } = project;
+  const { image, phoneScreens, result } = project;
+  const hasMedia = Boolean(image || phoneScreens?.length);
   const liveLink = project.links[0];
 
   return (
     <Card className="p-6 md:p-10">
-      <div className={twMerge("flex flex-col gap-8", image && "lg:grid lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-10")}>
+      <div className={twMerge("flex flex-col gap-8", hasMedia && "lg:grid lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-10")}>
         <div>
           <ProjectEyebrow project={project} showName />
           <Heading className="mt-3 font-serif text-2xl md:text-3xl">{project.headline}</Heading>
 
-          <dl className={twMerge("mt-6 grid gap-5", !image && "lg:grid-cols-3 lg:gap-8")}>
+          <dl className={twMerge("mt-6 grid gap-5", !hasMedia && "lg:grid-cols-3 lg:gap-8")}>
             <CardFact label="Problem">{project.problem}</CardFact>
             <CardFact label="My contribution">{project.contribution}</CardFact>
             <CardFact label="Result">
@@ -82,6 +84,13 @@ export const ProjectCard = ({ project, headingLevel = "h3" }: { project: Project
               sizes="(min-width: 1200px) 620px, 100vw"
               className="w-full rounded-xl border border-white/10 lg:absolute lg:left-0 lg:top-1/2 lg:w-[620px] lg:max-w-none lg:-translate-y-1/2"
             />
+          </div>
+        )}
+
+        {!image && phoneScreens && phoneScreens.length > 0 && (
+          // Above the text on phones; centred in the right column on large screens.
+          <div className="order-first flex justify-center lg:order-none lg:items-center">
+            <PhoneCarousel screens={phoneScreens} label={`${project.name} app screens, with demo data`} />
           </div>
         )}
       </div>
