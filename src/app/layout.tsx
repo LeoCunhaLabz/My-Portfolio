@@ -12,21 +12,22 @@ const calistoga = Calistoga({ subsets: ['latin'], variable: '--font-serif', weig
 export const metadata: Metadata = {
   // Define sua base para resolver URLs relativas das metas
   metadataBase: new URL("https://www.leonardo-cunha.com"),
-  title: "Leonardo Cunha's Portfolio",
+  title: "Leonardo Cunha — Software Engineer",
   description:
-    "From idea to MVP: SaaS, APIs, and automations with clear scope, milestone delivery, and documented hand-off.",
+    "Software Engineer building reliable SaaS products with TypeScript, Node.js, and React: product interfaces, APIs, integrations, and AI-powered workflows.",
 
   openGraph: {
-    title: "Leonardo Cunha Portfolio - Full-Stack Dev",
-    description: "From idea to MVP: SaaS, APIs, and automations with clear scope, milestone delivery, and documented hand-off.",
+    title: "Leonardo Cunha — Software Engineer",
+    description:
+      "Software Engineer building reliable SaaS products with TypeScript, Node.js, and React: product interfaces, APIs, integrations, and AI-powered workflows.",
     url: "/",
     siteName: "Leonardo Cunha",
     images: [
       {
-        url: "https://www.leonardo-cunha.com/portfolio-og.png",
-        width: 1812,
-        height: 996,
-        alt: "Portfolio preview",
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Leonardo Cunha, Software Engineer building reliable SaaS products.",
       },
     ],
     locale: "en_US",
