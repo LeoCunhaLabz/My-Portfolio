@@ -1,0 +1,69 @@
+This post is a placeholder. It exists so the layout can be checked on a preview deployment before the first real article is written. Each block below is one of the formats a post can use.
+
+## A section heading
+
+Body text is set for long reading: a narrow column, relaxed line height and a muted color, with **bold** for the few words that matter and [links](https://nextjs.org/docs/app/guides/mdx) in the accent color. Inline code such as `retryWithBackoff()` stands out from the text around it.
+
+### A smaller heading
+
+- Unordered lists hold short, parallel points.
+- Each item stays on one idea.
+- Long items wrap and keep their indentation, like this one, which goes on for a while to show what happens when a line breaks on a phone.
+
+1. Ordered lists hold steps.
+2. The numbers use the accent color.
+3. Three steps are enough to show it.
+
+## Code
+
+A TypeScript block with a file name and two highlighted lines:
+
+```ts title="retry.ts" {6-7}
+export async function retryWithBackoff<T>(task: () => Promise<T>, attempts = 3): Promise<T> {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await task();
+    } catch (error) {
+      if (attempt >= attempts) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 2 ** attempt * 1000));
+    }
+  }
+}
+```
+
+A Python block:
+
+```python
+def backoff_seconds(attempt: int, base: float = 1.0, cap: float = 30.0) -> float:
+    return min(cap, base * 2 ** attempt)
+```
+
+A long shell command, which scrolls sideways on a phone instead of breaking the page:
+
+```bash
+curl --silent --show-error --retry 3 --retry-delay 2 --header "Accept: application/json" "https://example.com/api/v1/articles?status=published&limit=100"
+```
+
+```
+A block without a language is shown as plain text.
+```
+
+## Tables
+
+| Attempt | Wait before the next try | Total time waited |
+| --- | --- | --- |
+| 1 | 2 s | 2 s |
+| 2 | 4 s | 6 s |
+| 3 | Gives up | 6 s |
+
+## Quotes
+
+> A quote or a callout gets the accent border. Keep it short.
+
+## Images
+
+![The social image of this site, with Leonardo's photo, name and role](/og-image.jpg "An image fills the width of the column. The text in quotes after the path becomes its caption.")
+
+---
+
+That covers every format. The first real post will take this placeholder's place.

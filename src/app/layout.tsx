@@ -5,13 +5,14 @@ import "./globals.css";
 import { twMerge } from "tailwind-merge";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { siteUrl } from "@/content/site";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 const calistoga = Calistoga({ subsets: ['latin'], variable: '--font-serif', weight: '400' })
 
 export const metadata: Metadata = {
   // Define sua base para resolver URLs relativas das metas
-  metadataBase: new URL("https://www.leonardo-cunha.com"),
+  metadataBase: new URL(siteUrl),
   title: "Leonardo Cunha — Software Engineer",
   description:
     "Software Engineer building reliable SaaS products with TypeScript, Node.js, and React: product interfaces, APIs, integrations, and AI-powered workflows.",
