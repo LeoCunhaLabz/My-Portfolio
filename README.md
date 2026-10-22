@@ -78,7 +78,7 @@ Keep source images at about twice their largest displayed size. `next/image` ser
 
 Posts are MDX files reviewed in a pull request, like any other change. Merging publishes a post; a deploy never sends email.
 
-1. **Create.** On a new branch, add the post to `allPosts` in `src/content/blog/index.ts` with `status: "draft"`, then write `src/content/blog/<slug>.mdx` with the same `slug`. The title, summary, dates and topics come from `index.ts`, so the MDX file holds only the text, with headings starting at `##`. `placeholder-post.mdx` shows every format a post can use.
+1. **Create.** On a new branch, add the post to `allPosts` in `src/content/blog/index.ts` with `status: "draft"`, then write `src/content/blog/<slug>.mdx` with the same `slug`. The title, summary, dates and topics come from `index.ts`, so the MDX file holds only the text, with headings starting at `##`. `placeholder-post.mdx` shows every format a post can use; it is published for now, so the layout can be checked in production, and goes back to `"draft"` with the first real post.
    - **Code:** name the language after the opening fence (` ```ts `). Add `title="retry.ts"` to show a file name and `{6-7}` to highlight lines.
    - **Images:** put them in `public/blog/<slug>/`, about 1600 px wide, and write `![Alt text](/blog/<slug>/file.png "Optional caption")`.
    - **Link preview image (optional):** a 1200×630 file in `public/blog/<slug>/`, set in `socialImage`. Without one, previews use `public/og-image.jpg`.
