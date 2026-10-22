@@ -7,9 +7,9 @@ import { RiverSimulatorDiagram } from "@/components/diagrams/RiverSimulatorDiagr
   <Fact label="What">A Windows desktop app that simulates how effluents affect a river's water quality and optimizes where they are discharged and how much they are treated.</Fact>
   <Fact label="Client">An environmental engineering PhD researcher.</Fact>
   <Fact label="Role">Sole developer: the model in code, the optimizer, the desktop interface, tests, packaging and the user manual.</Fact>
-  <Fact label="When">December 2024 to February 2025, with a second version in October 2025.</Fact>
+  <Fact label="When">December 2024 to February 2025.</Fact>
   <Fact label="Stack">Python, PyQt5, Matplotlib, pandas and XlsxWriter · PyInstaller for the executable · unittest.</Fact>
-  <Fact label="Results">Two versions delivered. The study and its findings belong to the researcher.</Fact>
+  <Fact label="Results">Delivered as a Windows desktop app. The study and its findings belong to the researcher.</Fact>
 </Facts>
 
 ## The problem
@@ -26,7 +26,6 @@ I was the only developer. I turned the QUAL-UFMG model into Python code and buil
 - **Scenarios:** rivers, tributaries, effluents and water intakes, each saved as a JSON file that can be edited in the app or in a text editor. A project is saved and imported as a folder.
 - **Optimizer:** a multi-objective genetic algorithm. Each candidate sets the discharge point and treatment efficiency of every effluent chosen for optimization, and is scored on up to five objectives: total treatment effort, inequity between sources, the best stretch for each source, and violations of the dissolved oxygen and BOD limits for the river's CONAMA class.
 - **Results:** charts of oxygen, BOD and flow along the river, a Pareto front to choose from, and CSV and Excel export of every solution or of one chosen solution.
-- **Version 2, October 2025:** dilution-flow analysis, the flow available for water-use permits, and charts that compare optimized and non-optimized runs.
 - **Packaging:** a single Windows executable built with PyInstaller, so the researcher runs it without installing Python.
 
 ## Architecture
@@ -53,12 +52,11 @@ The app is a set of small Python modules: the river model, the simulation, the g
 ## How I know it works
 
 - 22 automated tests with unittest, covering the model's coefficients, the river simulation, the Pareto front, the genetic operators, saving and loading results, and full optimization runs.
-- A second version followed in October 2025.
 - The researcher's own words, below.
 
 ## Results
 
-The software was delivered in early 2025, with a second version in October 2025. It has no usage metrics, and the scientific results it produced are the researcher's, not mine.
+The software was delivered in early 2025. It has no usage metrics, and the scientific results it produced are the researcher's, not mine.
 
 <Quote author="Tatiana C." role="PhD candidate, Environmental Engineering">Leonardo showed commitment and professionalism from the very first contact. He was very attentive and patient, going over the project information as many times as necessary. Excellent professional.</Quote>
 
