@@ -1,5 +1,9 @@
 import type { StaticImageData } from "next/image";
 import airticlesScreenshot from "@/assets/images/airticles-note.png";
+import onyxAnalyticsScreen from "@/assets/images/onyx-analytics.png";
+import onyxHomeScreen from "@/assets/images/onyx-home.png";
+import onyxPlatesScreen from "@/assets/images/onyx-plates.png";
+import onyxWorkoutScreen from "@/assets/images/onyx-workout.png";
 import riverSimulatorScreenshot from "@/assets/images/software-note.png";
 
 // The same fields feed the project cards (home page and /projects) and the top
@@ -30,6 +34,8 @@ export type Project = {
   };
   // A real screenshot; projects without one get a card without an image.
   image?: { src: StaticImageData; alt: string };
+  // For a mobile app: screenshots shown one after another in a phone frame, instead of `image`.
+  phoneScreens?: { src: StaticImageData; alt: string }[];
   stack: string[];
   links: ProjectLink[];
   // Shown next to the links, e.g. why there is no code or demo link.
@@ -78,6 +84,12 @@ export const projects: Project[] = [
       label: "automated tests",
       context: "Pre-launch, so no usage numbers yet · 180+ merged pull requests since June 2026",
     },
+    phoneScreens: [
+      { src: onyxHomeScreen, alt: "Home screen with the next workout of the program and the lifter's current strength" },
+      { src: onyxWorkoutScreen, alt: "A squat session in progress, with the RPE of each set and the rest timer running" },
+      { src: onyxPlatesScreen, alt: "Plate calculator showing which plates go on each side of the bar for 97.5 kg" },
+      { src: onyxAnalyticsScreen, alt: "The year's analytics: estimated total, DOTS score and best e1RM of each lift" },
+    ],
     stack: ["React", "TypeScript", "Fastify", "PostgreSQL", "Astro"],
     links: [
       { label: "Live app", href: "https://app.onyxtreino.com.br" },
