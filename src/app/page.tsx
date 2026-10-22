@@ -8,6 +8,7 @@ import { AboutSection } from "@/sections/About";
 import { BlogSection } from "@/sections/Blog";
 import { ContactSection } from "@/sections/Contact"
 import { Footer } from "@/sections/Footer";
+import { siteUrl } from "@/content/site";
 
 // Structured data for search engines (schema.org Person)
 const personJsonLd = {
@@ -15,7 +16,7 @@ const personJsonLd = {
   "@type": "Person",
   name: "Leonardo Cunha",
   jobTitle: "Software Engineer",
-  url: "https://www.leonardo-cunha.com",
+  url: siteUrl,
   sameAs: [
     "https://github.com/LeoCunhaLabz",
     "https://www.linkedin.com/in/leonardovcunha/",
