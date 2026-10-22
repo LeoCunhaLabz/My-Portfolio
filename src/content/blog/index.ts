@@ -19,14 +19,16 @@ export type Post = {
 };
 
 const allPosts: Post[] = [
+  // Published for now so the layout can be checked in production. Set it back to
+  // "draft" when the first real post is published.
   {
     slug: "placeholder-post",
     title: "Placeholder: how a post looks on this site",
     summary:
-      "A draft that shows every format a post can use: headings, lists, code, tables, quotes and images. It never appears in production.",
+      "A placeholder that shows every format a post can use: headings, lists, code, tables, quotes and images. The first real post will replace it.",
     publishedAt: "2026-10-22",
     tags: ["Placeholder", "Formatting"],
-    status: "draft",
+    status: "published",
   },
 ];
 
