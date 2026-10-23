@@ -22,7 +22,7 @@ export const Footer = () => {
       <div className='absolute h-[400px] w-[1600px] bottom-0 left-1/2 -translate-x-1/2 bg-emerald-300/30 [mask-image:radial-gradient(50%_50%_at_bottom_center,black,transparent)] -z-20 pointer-events-none'></div>
       <div className="container">
         <div className="border-t border-white/15 py-6 text-sm flex flex-col items-center gap-8 md:flex-row md:justify-between">
-          <div className='text-white/60'>&copy; {new Date().getFullYear()}. All rights reserved</div>
+          <div className='text-white/70'>&copy; {new Date().getFullYear()}. All rights reserved</div>
           <nav aria-label='Footer' className='flex flex-col items-center gap-8 md:flex-row'>
             {footerLinks.map((link) => (
               <a
