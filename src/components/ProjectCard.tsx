@@ -18,7 +18,17 @@ const CardFact = ({ label, children }: { label: string; children: ReactNode }) =
   </div>
 );
 
-export const ProjectCard = ({ project, headingLevel = "h3" }: { project: Project; headingLevel?: "h2" | "h3" }) => {
+// On /projects the first card's image is the largest thing on screen, so it loads
+// right away instead of lazily (imagePriority).
+export const ProjectCard = ({
+  project,
+  headingLevel = "h3",
+  imagePriority = false,
+}: {
+  project: Project;
+  headingLevel?: "h2" | "h3";
+  imagePriority?: boolean;
+}) => {
   const Heading = headingLevel;
   const { image, phoneScreens, result } = project;
   const hasMedia = Boolean(image || phoneScreens?.length);
@@ -82,6 +92,8 @@ export const ProjectCard = ({ project, headingLevel = "h3" }: { project: Project
               src={image.src}
               alt={image.alt}
               sizes="(min-width: 1200px) 620px, 100vw"
+              loading={imagePriority ? "eager" : undefined}
+              fetchPriority={imagePriority ? "high" : undefined}
               className="w-full rounded-xl border border-white/10 lg:absolute lg:left-0 lg:top-1/2 lg:w-[620px] lg:max-w-none lg:-translate-y-1/2"
             />
           </div>

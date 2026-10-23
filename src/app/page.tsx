@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Header } from "@/sections/Header";
 import { HeroSection } from "@/sections/Hero";
 import { ExperienceSection } from "@/sections/Experience";
@@ -9,6 +10,11 @@ import { BlogSection } from "@/sections/Blog";
 import { ContactSection } from "@/sections/Contact"
 import { Footer } from "@/sections/Footer";
 import { siteUrl } from "@/content/site";
+
+// Title, description and social image come from the root layout.
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 // Structured data for search engines (schema.org Person)
 const personJsonLd = {
@@ -33,14 +39,16 @@ export default function Home() {
         }}
       />
       <Header />
-      <HeroSection />
-      <ExperienceSection />
-      <ProjectsSection />
-      <TapeSection />
-      <AboutSection />
-      <BlogSection />
-      <TestimonialsSection />
-      <ContactSection />
+      <main id="main">
+        <HeroSection />
+        <ExperienceSection />
+        <ProjectsSection />
+        <TapeSection />
+        <AboutSection />
+        <BlogSection />
+        <TestimonialsSection />
+        <ContactSection />
+      </main>
       <Footer />
     </div>
   );

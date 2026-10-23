@@ -14,30 +14,39 @@ export const Header = ({ page = "home" }: { page?: "home" | "projects" | "blog" 
     isCurrent ? { className: `${className} bg-white/10 text-white`, "aria-current": "page" as const } : { className };
 
   return (
-    <div className = "flex justify-center items-center fixed top-3 w-full z-10 px-2">
-      <nav className = "flex gap-1 p-0.5 border border-white/15 rounded-full bg-white/10 backdrop-blur overflow-x-auto max-w-full">
-        <a href={section("home")} className="nav-item hidden md:inline-flex">
-          Home
-        </a>
-        <a href={section("experience")} className="nav-item">
-          Experience
-        </a>
-        <a href={onHome ? "#projects" : "/projects"} {...linkProps("nav-item", page === "projects")}>
-          Work
-        </a>
-        <a href={section("about")} className="nav-item">
-          About
-        </a>
-        <a
-          href={onHome || !hasPosts ? section("blog") : "/blog"}
-          {...linkProps("nav-item hidden md:inline-flex", page === "blog")}
-        >
-          Writing
-        </a>
-        <a href={section("contact")} className="nav-item bg-white text-gray-900 hover:bg-white/70 hover:text-gray-900">
-          Contact
-        </a>
-      </nav>
-    </div>
+    <>
+      {/* The first stop for keyboard users: it appears on focus and jumps past the menu. */}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
+      >
+        Skip to content
+      </a>
+      <div className = "flex justify-center items-center fixed top-3 w-full z-10 px-2">
+        <nav aria-label="Main" className = "flex gap-1 p-0.5 border border-white/15 rounded-full bg-white/10 backdrop-blur overflow-x-auto max-w-full">
+          <a href={section("home")} className="nav-item hidden md:inline-flex">
+            Home
+          </a>
+          <a href={section("experience")} className="nav-item">
+            Experience
+          </a>
+          <a href={onHome ? "#projects" : "/projects"} {...linkProps("nav-item", page === "projects")}>
+            Work
+          </a>
+          <a href={section("about")} className="nav-item">
+            About
+          </a>
+          <a
+            href={onHome || !hasPosts ? section("blog") : "/blog"}
+            {...linkProps("nav-item hidden md:inline-flex", page === "blog")}
+          >
+            Writing
+          </a>
+          <a href={section("contact")} className="nav-item bg-white text-gray-900 hover:bg-white/70 hover:text-gray-900">
+            Contact
+          </a>
+        </nav>
+      </div>
+    </>
   );
 };

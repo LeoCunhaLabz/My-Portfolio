@@ -51,7 +51,7 @@ export default async function ProjectPage({ params }: Props) {
   return (
     <div>
       <Header page="projects" />
-      <main className="pb-24 pt-28 md:pt-36">
+      <main id="main" className="pb-24 pt-28 md:pt-36">
         <article className="container">
           <div className="mx-auto max-w-3xl">
             <Link
