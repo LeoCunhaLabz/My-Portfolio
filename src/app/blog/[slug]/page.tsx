@@ -85,7 +85,7 @@ export default async function PostPage({ params }: Props) {
         }}
       />
       <Header page="blog" />
-      <main className="pb-24 pt-28 md:pt-36">
+      <main id="main" className="pb-24 pt-28 md:pt-36">
         <article className="container">
           <div className="mx-auto max-w-3xl">
             <Link

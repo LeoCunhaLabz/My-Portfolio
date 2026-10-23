@@ -73,7 +73,7 @@ const components: MDXComponents = {
   pre: (props) => (
     <pre
       tabIndex={0}
-      className="mt-6 overflow-x-auto rounded-xl border border-white/10 bg-gray-800/60 py-4 font-mono text-sm leading-relaxed focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 [&_[data-highlighted-line]]:bg-emerald-300/10 [&_[data-highlighted-line]]:shadow-[inset_2px_0_0] [&_[data-highlighted-line]]:shadow-emerald-300 [&_[data-line]]:px-4"
+      className="mt-6 overflow-x-auto rounded-xl border border-white/10 bg-gray-800/60 py-4 font-mono text-sm leading-relaxed focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 [&_[data-highlighted-line]]:bg-emerald-300/5 [&_[data-highlighted-line]]:shadow-[inset_2px_0_0] [&_[data-highlighted-line]]:shadow-emerald-300 [&_[data-line]]:px-4"
       {...props}
     />
   ),

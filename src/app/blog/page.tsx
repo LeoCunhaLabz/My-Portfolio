@@ -32,7 +32,7 @@ export default function BlogPage() {
   return (
     <div>
       <Header page="blog" />
-      <main className="pb-24 pt-32 md:pt-40">
+      <main id="main" className="pb-24 pt-32 md:pt-40">
         <div className="container">
           <div className="text-center">
             <p className="font-semibold uppercase tracking-widest text-emerald-300">Writing</p>

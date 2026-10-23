@@ -136,9 +136,9 @@ export const AboutSection = () => {
               after:absolute after:inset-0 after:outline 
               after-outline-2 after:-outline-offset-2 
               after:rounded-full after:outline-gray-950/30">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-20 animate-ping [aniamation-duration:2s]"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-20 animate-ping motion-reduce:animate-none [aniamation-duration:2s]"></div>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10 overflow-hidden">
-                  <Image src={smileMemoji} alt="Smile Memoji" className="size-20"/>
+                  <Image src={smileMemoji} alt="" className="size-20"/>
                 </div>
               </div>
             </Card>
@@ -151,7 +151,8 @@ export const AboutSection = () => {
                 className=""
               />
               <ToolboxItems items={toolboxItems} className="" itemsWrapperClassName="animate-move-left [animation-duration:30s]"/>
-              <ToolboxItems items={toolboxItems} className="mt-6" itemsWrapperClassName="animate-move-right [animation-duration:15s]"/>
+              {/* The second row repeats the first, so screen readers skip it. */}
+              <ToolboxItems items={toolboxItems} className="mt-6" itemsWrapperClassName="animate-move-right [animation-duration:15s]" aria-hidden/>
             </Card>
           <Card className="h-[320px] p-0 flex flex-col lg:col-span-2">
             <CardHeader

@@ -5,7 +5,8 @@ import { Fragment } from "react";
 export const ToolboxItems = ( {
     items,
     className,
-    itemsWrapperClassName
+    itemsWrapperClassName,
+    "aria-hidden": ariaHidden,
 } : {
     items: {
         title: string;
@@ -13,21 +14,23 @@ export const ToolboxItems = ( {
     }[];
     className?: string;
     itemsWrapperClassName?: string;
+    "aria-hidden"?: boolean;
 } ) => {
   return (
-    <div className={twMerge("flex", className)} style={{
+    <div className={twMerge("flex", className)} aria-hidden={ariaHidden} style={{
         maskImage:
           "linear-gradient(to right, transparent, black 10%, black 90%, transparent)"
       }}>
         <div className={twMerge(
-            "flex flex-none py-0.5 gap-6 pr-6", 
+            "flex flex-none py-0.5 gap-6 pr-6 motion-reduce:animate-none",
             itemsWrapperClassName
             )}
         >
             {[...new Array(2)].fill(0).map((_, idx) => (
                 <Fragment key={idx}>
+                    {/* The second copy only closes the loop, so screen readers skip it. */}
                     {items.map((item) => (
-                        <div key={item.title} className="inline-flex items-center gap-4 py-2 px-3 outline outline-2 outline-white/10 rounded-lg">
+                        <div key={item.title} aria-hidden={idx === 1 ? true : undefined} className="inline-flex items-center gap-4 py-2 px-3 outline outline-2 outline-white/10 rounded-lg">
                         <TechIcon component={item.iconType} />
                         <span className="font-semibold">{item.title}</span>
                     </div>

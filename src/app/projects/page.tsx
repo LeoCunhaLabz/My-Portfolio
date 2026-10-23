@@ -26,7 +26,7 @@ export default function ProjectsPage() {
   return (
     <div>
       <Header page="projects" />
-      <main className="pb-24 pt-32 md:pt-40">
+      <main id="main" className="pb-24 pt-32 md:pt-40">
         <div className="container">
           <div className="text-center">
             <p className="font-semibold uppercase tracking-widest text-emerald-300">
@@ -37,9 +37,9 @@ export default function ProjectsPage() {
           </div>
 
           <ul className="mt-12 flex flex-col gap-8 md:mt-16">
-            {projects.map((project) => (
+            {projects.map((project, index) => (
               <li key={project.slug}>
-                <ProjectCard project={project} headingLevel="h2" />
+                <ProjectCard project={project} headingLevel="h2" imagePriority={index === 0} />
               </li>
             ))}
           </ul>

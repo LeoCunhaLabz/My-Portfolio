@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useId, useRef, useState } from "react"
 import WhatsAppSvg from '@/assets/icons/whatsapp.svg'
 import EmailSvg from '@/assets/icons/email.svg'
 import LinkedinSvg from '@/assets/icons/linkedin.svg'
@@ -16,6 +16,8 @@ export default function ContactModal({ open, onClose }: Props) {
   const [closing, setClosing] = useState(false)
   const [prevOpen, setPrevOpen] = useState(open)
   const firstLinkRef = useRef<HTMLAnchorElement | null>(null)
+  const panelRef = useRef<HTMLDivElement | null>(null)
+  const titleId = useId()
   const ANIM_MS = 220
 
   // Sync with the `open` prop during render instead of in an effect
@@ -48,6 +50,21 @@ export default function ContactModal({ open, onClose }: Props) {
 
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose()
+      if (e.key !== "Tab" || !panelRef.current) return
+
+      // Keep Tab and Shift+Tab inside the dialog: from the last control back to
+      // the first one, and the other way round.
+      const focusable = panelRef.current.querySelectorAll<HTMLElement>("a[href], button")
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      const inside = panelRef.current.contains(document.activeElement)
+      if (e.shiftKey && (document.activeElement === first || !inside)) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && (document.activeElement === last || !inside)) {
+        e.preventDefault()
+        first.focus()
+      }
     }
     document.addEventListener("keydown", onKey)
     return () => {
@@ -62,6 +79,7 @@ export default function ContactModal({ open, onClose }: Props) {
     <div
       role="dialog"
       aria-modal="true"
+      aria-labelledby={titleId}
       className={`fixed inset-0 z-50 flex items-center justify-center px-4`}
     >
       {/* overlay */}
@@ -72,18 +90,20 @@ export default function ContactModal({ open, onClose }: Props) {
 
       {/* modal panel */}
       <div
+        ref={panelRef}
         className={`relative w-full max-w-lg bg-white text-gray-900 rounded-2xl shadow-lg overflow-hidden transform transition-all duration-200 ${closing ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}
       >
         <div className="p-6">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <h3 className="text-lg font-semibold">How would you like to contact me?</h3>
+              <h2 id={titleId} className="text-lg font-semibold">How would you like to contact me?</h2>
               <p className="text-sm mt-1 text-gray-600">Choose one of the options — they&apos;ll open in a new tab.</p>
             </div>
             <button
+              type="button"
               onClick={onClose}
               aria-label="Close"
-              className="ml-auto text-gray-500 hover:text-gray-800 focus:outline-none"
+              className="ml-auto rounded text-gray-500 hover:text-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400"
             >
               ×
             </button>
@@ -98,7 +118,7 @@ export default function ContactModal({ open, onClose }: Props) {
               rel="noreferrer"
               className="flex-1 inline-flex items-center gap-3 justify-center px-4 py-4 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 md:flex-col md:gap-2 md:py-6"
             >
-              <WhatsAppSvg className="text-emerald-700 w-5 h-5 md:w-12 md:h-12" />
+              <WhatsAppSvg className="text-emerald-700 w-5 h-5 md:w-12 md:h-12" aria-hidden="true" />
               <span className="font-medium">WhatsApp</span>
             </a>
 
@@ -108,7 +128,7 @@ export default function ContactModal({ open, onClose }: Props) {
               rel="noreferrer"
               className="flex-1 inline-flex items-center gap-3 justify-center px-4 py-4 rounded-lg bg-sky-50 hover:bg-sky-100 border border-sky-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 md:flex-col md:gap-2 md:py-6"
             >
-              <EmailSvg className="text-emerald-700 w-5 h-5 md:w-12 md:h-12" />
+              <EmailSvg className="text-emerald-700 w-5 h-5 md:w-12 md:h-12" aria-hidden="true" />
               <span className="font-medium">Email</span>
             </a>
 
@@ -118,7 +138,7 @@ export default function ContactModal({ open, onClose }: Props) {
               rel="noreferrer"
               className="flex-1 inline-flex items-center gap-3 justify-center px-4 py-4 rounded-lg bg-gray-50 hover:bg-gray-100 border border-gray-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 md:flex-col md:gap-2 md:py-6"
             >
-              <LinkedinSvg className="text-emerald-700 w-5 h-5 md:w-12 md:h-12" />
+              <LinkedinSvg className="text-emerald-700 w-5 h-5 md:w-12 md:h-12" aria-hidden="true" />
               <span className="font-medium">LinkedIn</span>
             </a>
           </div>
