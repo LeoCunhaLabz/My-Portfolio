@@ -21,3 +21,32 @@
         @apply lg:max-w-5xl
     }
 }
+
+/* The case study modal on the home page (CaseStudyModal) fades and slides in. */
+@layer components {
+    .case-dialog[open] {
+        animation: case-dialog-in 200ms ease-out;
+    }
+    .case-dialog[open]::backdrop {
+        animation: case-backdrop-in 200ms ease-out;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .case-dialog[open],
+        .case-dialog[open]::backdrop {
+            animation: none;
+        }
+    }
+}
+
+@keyframes case-dialog-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+@keyframes case-backdrop-in {
+    from {
+        opacity: 0;
+    }
+}

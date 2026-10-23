@@ -7,7 +7,7 @@ import { Card } from "@/components/Card";
 import { Disclosure } from "@/components/Disclosure";
 import { PhoneCarousel } from "@/components/PhoneCarousel";
 import { ProjectEyebrow, StackList } from "@/components/ProjectEyebrow";
-import type { Project } from "@/content/projects";
+import { caseStudyHash, type Project } from "@/content/projects";
 
 // One project on the home page and on /projects: the result up front, the problem
 // and my part one click away, and links to the case study and the live product.
@@ -20,20 +20,33 @@ const CardFact = ({ label, children }: { label: string; children: ReactNode }) =
 );
 
 // On /projects the first card's image is the largest thing on screen, so it loads
-// right away instead of lazily (imagePriority).
+// right away instead of lazily (imagePriority). On the home page the case study
+// opens in a modal (caseStudyIn="modal"); on /projects it opens its own page.
 export const ProjectCard = ({
   project,
   headingLevel = "h3",
   imagePriority = false,
+  caseStudyIn = "page",
 }: {
   project: Project;
   headingLevel?: "h2" | "h3";
   imagePriority?: boolean;
+  caseStudyIn?: "page" | "modal";
 }) => {
   const Heading = headingLevel;
   const { image, phoneScreens, result } = project;
   const hasMedia = Boolean(image || phoneScreens?.length);
   const liveLink = project.links[0];
+  const caseStudyClassName =
+    "inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 font-semibold text-gray-950 transition-colors hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800";
+  const caseStudyLabel = (
+    <>
+      <span>
+        Read the case study<span className="sr-only">: {project.name}</span>
+      </span>
+      <span aria-hidden="true">&rarr;</span>
+    </>
+  );
 
   return (
     <Card className="p-6 md:p-10">
@@ -74,15 +87,15 @@ export const ProjectCard = ({
           </Disclosure>
 
           <div className="mt-6 flex flex-col gap-3 md:flex-row">
-            <Link
-              href={`/projects/${project.slug}`}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 font-semibold text-gray-950 transition-colors hover:bg-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-800"
-            >
-              <span>
-                Read the case study<span className="sr-only">: {project.name}</span>
-              </span>
-              <span aria-hidden="true">&rarr;</span>
-            </Link>
+            {caseStudyIn === "modal" ? (
+              <a href={caseStudyHash(project.slug)} aria-haspopup="dialog" className={caseStudyClassName}>
+                {caseStudyLabel}
+              </a>
+            ) : (
+              <Link href={`/projects/${project.slug}`} className={caseStudyClassName}>
+                {caseStudyLabel}
+              </Link>
+            )}
             {liveLink && (
               <a
                 href={liveLink.href}
