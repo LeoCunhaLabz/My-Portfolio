@@ -45,8 +45,8 @@ export default function Home() {
         <ProjectsSection />
         <TapeSection />
         <AboutSection />
-        <BlogSection />
         <TestimonialsSection />
+        <BlogSection />
         <ContactSection />
       </main>
       <Footer />
