@@ -21,7 +21,7 @@ import avatarBust from "@/assets/images/avatar-bust.png";
 import { CardHeader } from "@/components/CardHeader";
 import { ToolboxItems } from "@/components/ToolboxItems";
 import { motion } from "framer-motion"
-import { useRef } from "react";
+import { useRef, useSyncExternalStore } from "react";
 
 const toolboxItems = [
   {
@@ -109,8 +109,19 @@ const hobbies = [
   },
 ]
 
+// The hobby pills can be dragged with a mouse only. On touch screens dragging would
+// block the page scroll whenever a finger starts on a pill (#29).
+const finePointer = "(pointer: fine)"
+const subscribeToPointer = (onChange: () => void) => {
+  const query = window.matchMedia(finePointer)
+  query.addEventListener("change", onChange)
+  return () => query.removeEventListener("change", onChange)
+}
+
 export const AboutSection = () => {
   const constraintRef = useRef(null)
+  // False on the server and during hydration, so the first render matches the HTML.
+  const canDrag = useSyncExternalStore(subscribeToPointer, () => window.matchMedia(finePointer).matches, () => false)
   return (
   <div id="about" className="py-20 lg:py-28">
       <div className="container">
@@ -174,7 +185,7 @@ export const AboutSection = () => {
                   left: hobby.left,
                   top: hobby.top
                 }}
-                drag
+                drag={canDrag}
                 dragConstraints={constraintRef}
                 >
                   <span className="font-medium text-gray-950">{hobby.title}</span>
