@@ -1,3 +1,4 @@
+import { Disclosure } from "@/components/Disclosure";
 import { SectionHeader } from "@/components/sectionHeader";
 
 const experiences = [
@@ -60,17 +61,7 @@ export const ExperienceSection = () => {
                   {experience.company} · {experience.location}
                 </p>
                 <p className="mt-4 leading-relaxed text-white/70">{experience.context}</p>
-                {experience.highlights.length > 0 && (
-                  <ul className="mt-4 flex flex-col gap-3">
-                    {experience.highlights.map((highlight) => (
-                      <li key={highlight} className="flex gap-3 leading-relaxed text-white/70">
-                        <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-emerald-300" aria-hidden="true"></span>
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <ul aria-label="Technologies" className="mt-5 flex flex-wrap gap-2">
+                <ul aria-label="Technologies" className="mt-4 flex flex-wrap gap-2">
                   {experience.technologies.map((technology) => (
                     <li
                       key={technology}
@@ -80,6 +71,24 @@ export const ExperienceSection = () => {
                     </li>
                   ))}
                 </ul>
+                {/* The first read is the role, the context and the stack; the highlights wait behind a toggle. */}
+                {experience.highlights.length > 0 && (
+                  <Disclosure
+                    showLabel="Show highlights"
+                    hideLabel="Hide highlights"
+                    context={experience.company}
+                    className="mt-2"
+                  >
+                    <ul className="mt-1 flex flex-col gap-3">
+                      {experience.highlights.map((highlight) => (
+                        <li key={highlight} className="flex gap-3 leading-relaxed text-white/70">
+                          <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-emerald-300" aria-hidden="true"></span>
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </Disclosure>
+                )}
               </div>
             </li>
           ))}

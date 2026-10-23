@@ -10,7 +10,7 @@ export const ProjectsSection = () => {
         <SectionHeader
           eyebrow="Selected Work"
           title="Featured Projects"
-          description="The problem, my part and the result of each one, with a full case study behind every card."
+          description="What each project achieved, with a quick look and a full case study behind every card."
         />
         <ul className="mt-10 flex flex-col gap-8 md:mt-16">
           {projects.map((project) => (
