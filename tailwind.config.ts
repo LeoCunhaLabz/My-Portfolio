@@ -30,7 +30,8 @@ const config: Config = {
       animation: {
         'move-left': 'move-left 1s linear infinite',
         'move-right': 'move-right 1s linear infinite',
-        'ring-pulse': 'ring-pulse 4.5s ease-in-out infinite'
+        'ring-pulse': 'ring-pulse 4.5s ease-in-out infinite',
+        'flow-dot': 'flow-dot 3.6s ease-in-out infinite'
       },
       keyframes: {
         'move-left': {
@@ -58,6 +59,20 @@ const config: Config = {
           '50%': {
             scale: '1.04',
             opacity: '0.55'
+          },
+        },
+        // Moves during the first half only, so ProductFlow can run its arrows in turn.
+        'flow-dot': {
+          '0%': {
+            transform: 'translateX(0%)',
+            opacity: '0'
+          },
+          '8%, 42%': {
+            opacity: '1'
+          },
+          '50%, 100%': {
+            transform: 'translateX(100%)',
+            opacity: '0'
           },
         }
       }

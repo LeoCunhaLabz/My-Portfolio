@@ -20,6 +20,7 @@ import mapImage from "@/assets/images/map.png";
 import avatarBust from "@/assets/images/avatar-bust.png";
 import { CardHeader } from "@/components/CardHeader";
 import { ToolboxItems } from "@/components/ToolboxItems";
+import { ProductFlow } from "@/components/ProductFlow";
 import { motion } from "framer-motion"
 import { useRef, useSyncExternalStore } from "react";
 
@@ -61,8 +62,6 @@ const toolboxItems = [
     iconType: PythonIcon
   },
 ]
-
-const focusAreas = ["Product engineering", "Integrations & reliability", "Applied AI"]
 
 const hobbies = [
   {
@@ -137,14 +136,7 @@ export const AboutSection = () => {
                 title="Product-Minded Engineer"
                 description="I start from what users need, then build the APIs and interfaces that deliver it."
               />
-              <ul className="mt-auto flex flex-wrap gap-2 px-6 pb-6 md:px-10 md:pb-10">
-                {focusAreas.map((area) => (
-                  <li key={area} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm font-medium text-white/80">
-                    <span className="size-1.5 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400" aria-hidden="true"></span>
-                    {area}
-                  </li>
-                ))}
-              </ul>
+              <ProductFlow className="px-6 pb-6 md:mt-auto md:px-10 md:pb-10" />
             </Card>
             <Card className="h-[240px] p-0 md:col-span-2 md:h-auto md:min-h-[320px] lg:col-span-1">
               <Image src={mapImage} alt="Map of São Paulo" className="absolute inset-0 h-full w-full object-cover object-left-top"/>
