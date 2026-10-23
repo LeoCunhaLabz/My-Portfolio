@@ -4,8 +4,6 @@ import memojiAvatar3 from "@/assets/images/romulo_memoji.png";
 import { SectionHeader } from "@/components/sectionHeader";
 import Image from "next/image";
 import { Card } from "@/components/Card";
-import { PausableMarquee } from "@/components/PausableMarquee";
-import { Fragment } from "react";
 
 const testimonials = [
   {
@@ -29,42 +27,40 @@ const testimonials = [
   },
 ];
 
+// The three cards sit side by side and don't move, so they can be read at once
+// and need no pause button.
 export const TestimonialsSection = () => {
   return (
-    <div className="py-16 lg:py-24">
+    <section className="py-16 lg:py-24">
       <div className="container">
         <SectionHeader
           eyebrow="Recommendations"
-          title="What Clients Say"
-          description="Feedback from clients I have built software for."
+          title="In Their Words"
+          description="Feedback from people I've worked with."
         />
-        <PausableMarquee label="testimonials" className="mt-16 lg:mt-24">
-          {[...new Array(2)].fill(0).map((_,idx) => (
-            <Fragment key={idx}>
-              {testimonials.map((testimonial, index) => (
-                // The second copy only closes the loop: screen readers skip it, and
-                // with reduced motion it is hidden.
-                <Card
-                  key={index}
-                  aria-hidden={idx === 1 ? true : undefined}
-                  className={`max-w-xs md:max-w-md p-6 md:p-8 hover:-rotate-3 transition duration-400 ${idx === 1 ? "motion-reduce:hidden" : ""}`}
-                >
-                  <div className="flex gap-4 items-center">
-                    <div className="size-14 bg-gray-700 inline-flex items-center justify-center rounded-full flex-shrink-0 overflow-hidden">
+        <ul className="mx-auto mt-12 grid max-w-md gap-8 md:mt-16 lg:max-w-none lg:grid-cols-3">
+          {testimonials.map((testimonial) => (
+            <li key={testimonial.name}>
+              <Card className="h-full p-6 transition duration-400 hover:-rotate-3 motion-reduce:hover:rotate-0 md:p-8">
+                <figure>
+                  <figcaption className="flex items-center gap-4">
+                    <div className="inline-flex size-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-700">
                       <Image src={testimonial.avatar} alt="" className="max-h-full" />
                     </div>
                     <div>
                       <div className="font-semibold">{testimonial.name}</div>
                       <div className="text-sm text-white/60">{testimonial.position}</div>
                     </div>
-                  </div>
-                  <p className="mt-4 text-sm md:text-base md:mt-6">{testimonial.text}</p>
-                </Card>
-              ))}
-            </Fragment>
+                  </figcaption>
+                  <blockquote className="mt-4 text-sm md:mt-6 md:text-base">
+                    <p>{testimonial.text}</p>
+                  </blockquote>
+                </figure>
+              </Card>
+            </li>
           ))}
-        </PausableMarquee>
+        </ul>
       </div>
-    </div>
+    </section>
   );
 };

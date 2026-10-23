@@ -62,6 +62,8 @@ const toolboxItems = [
   },
 ]
 
+const focusAreas = ["Product engineering", "Integrations & reliability", "Applied AI"]
+
 const hobbies = [
   {
     title: 'Traveling',
@@ -119,15 +121,19 @@ export const AboutSection = () => {
         />
         <div className="mt-20 flex flex-col gap-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-5 lg:grid-cols-3">
-            <Card className="p-6 md:col-span-3 md:p-10 lg:col-span-2">
-              <div className="flex flex-col gap-5 text-lg leading-relaxed text-white/80 lg:text-xl">
-                <p>
-                  I enjoy working across the boundaries of a product: understanding what users need, shaping the data and API contracts, and building the interfaces around them.
-                </p>
-                <p>
-                  My background combines software engineering, automation, and business analysis, which helps me connect implementation decisions to the problem the team is solving.
-                </p>
-              </div>
+            <Card className="flex flex-col md:col-span-3 lg:col-span-2">
+              <CardHeader
+                title="Product-Minded Engineer"
+                description="I start from what users need, then build the APIs and interfaces that deliver it."
+              />
+              <ul className="mt-auto flex flex-wrap gap-2 px-6 pb-6 md:px-10 md:pb-10">
+                {focusAreas.map((area) => (
+                  <li key={area} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-sm font-medium text-white/80">
+                    <span className="size-1.5 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400" aria-hidden="true"></span>
+                    {area}
+                  </li>
+                ))}
+              </ul>
             </Card>
             <Card className="h-[240px] p-0 md:col-span-2 md:h-auto md:min-h-[320px] lg:col-span-1">
               <Image src={mapImage} alt="Map of São Paulo" className="absolute inset-0 h-full w-full object-cover object-left-top"/>
