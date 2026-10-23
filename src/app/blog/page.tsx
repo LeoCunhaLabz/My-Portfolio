@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { NewsletterForm } from "@/components/NewsletterForm";
 import { PostCard } from "@/components/PostCard";
 import { posts } from "@/content/blog";
 import { Header } from "@/sections/Header";
@@ -47,6 +48,10 @@ export default function BlogPage() {
               </li>
             ))}
           </ul>
+
+          <div className="mx-auto mt-16 max-w-3xl">
+            <NewsletterForm />
+          </div>
         </div>
       </main>
       <Footer />
