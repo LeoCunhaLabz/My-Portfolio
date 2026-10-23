@@ -4,9 +4,11 @@ import Image, { type StaticImageData } from "next/image";
 import { type FocusEvent, useEffect, useState, useSyncExternalStore } from "react";
 import { twMerge } from "tailwind-merge";
 
-// Screens of a mobile app inside a phone frame, fading from one to the next.
-// It stops while the pointer or keyboard focus is on it and has a pause button.
-// With reduced motion it starts paused; the dots still switch screens.
+// Screens of a mobile app as a stack of phones. On each turn the phone behind the
+// front one swings out to the side and takes its place, and the front one goes to
+// the back (styles in globals.css). It stops while the pointer or keyboard focus is
+// on it and has a pause button. With reduced motion it starts paused and the dots
+// switch screens without animation.
 
 type Screen = { src: StaticImageData; alt: string };
 
@@ -19,8 +21,16 @@ const subscribeToReducedMotion = (onChange: () => void) => {
   return () => query.removeEventListener("change", onChange);
 };
 
+// 0 is the front phone, 1 and 2 peek out behind it, and the rest wait hidden at the back.
+const stackPosition = (offset: number) => (offset < 3 ? String(offset) : "hidden");
+
 export const PhoneCarousel = ({ screens, label }: { screens: Screen[]; label: string }) => {
-  const [active, setActive] = useState(0);
+  // previous is the screen that was in front before, so only a step to the next
+  // screen animates; a jump through the dots just moves the phones into place.
+  const [{ active, previous }, setStack] = useState<{ active: number; previous: number | null }>({
+    active: 0,
+    previous: null,
+  });
   // null until the visitor presses play or pause; until then reduced motion decides.
   const [playChoice, setPlayChoice] = useState<boolean | null>(null);
   const [held, setHeld] = useState(false);
@@ -33,15 +43,23 @@ export const PhoneCarousel = ({ screens, label }: { screens: Screen[]; label: st
   const autoplay = playChoice ?? !reducedMotion;
   const running = autoplay && !held && screens.length > 1;
 
+  const show = (index: number) =>
+    setStack((stack) => (index === stack.active ? stack : { active: index, previous: stack.active }));
+
   useEffect(() => {
     if (!running) return;
-    const timer = window.setInterval(() => setActive((index) => (index + 1) % screens.length), INTERVAL_MS);
+    const timer = window.setInterval(
+      () => setStack((stack) => ({ active: (stack.active + 1) % screens.length, previous: stack.active })),
+      INTERVAL_MS
+    );
     return () => window.clearInterval(timer);
   }, [running, screens.length]);
 
   const release = (event: FocusEvent<HTMLDivElement>) => {
     if (!event.currentTarget.contains(event.relatedTarget)) setHeld(false);
   };
+
+  const steppedForward = previous !== null && (previous + 1) % screens.length === active;
 
   return (
     <div
@@ -54,22 +72,31 @@ export const PhoneCarousel = ({ screens, label }: { screens: Screen[]; label: st
       onFocus={() => setHeld(true)}
       onBlur={release}
     >
-      <div className="w-[200px] rounded-[2.5rem] border border-white/15 bg-[#121515] p-2.5 shadow-2xl shadow-black/40 md:w-[240px] lg:w-[260px]">
-        <div className="relative aspect-[390/844] overflow-hidden rounded-[2rem] bg-[#0c0b0a]">
-          {screens.map((screen, index) => (
-            <Image
+      {/* The phones share one grid cell; the ones behind are shifted with transforms,
+          so the right padding keeps them inside the column. */}
+      <div className="grid pr-16 lg:pr-20">
+        {screens.map((screen, index) => {
+          const offset = (index - active + screens.length) % screens.length;
+          const motion = steppedForward ? (index === active ? "enter" : index === previous ? "leave" : undefined) : undefined;
+          return (
+            <div
               key={screen.src.src}
-              src={screen.src}
-              alt={screen.alt}
-              aria-hidden={index !== active}
-              sizes="(min-width: 1200px) 240px, (min-width: 768px) 220px, 180px"
-              className={twMerge(
-                "absolute inset-0 h-full w-full object-cover transition-opacity duration-700 motion-reduce:transition-none",
-                index === active ? "opacity-100" : "opacity-0"
-              )}
-            />
-          ))}
-        </div>
+              aria-hidden={offset !== 0}
+              data-position={stackPosition(offset)}
+              data-motion={motion}
+              className="phone-stack-card w-[180px] rounded-[2.25rem] border border-white/15 bg-[#121515] p-2 shadow-2xl shadow-black/50 md:w-[210px] md:rounded-[2.5rem] md:p-2.5 lg:w-[220px]"
+            >
+              <div className="relative aspect-[390/844] overflow-hidden rounded-[1.75rem] bg-[#0c0b0a] md:rounded-[2rem]">
+                <Image
+                  src={screen.src}
+                  alt={screen.alt}
+                  sizes="(min-width: 1200px) 200px, (min-width: 768px) 190px, 164px"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <div className="flex items-center gap-1">
@@ -77,7 +104,7 @@ export const PhoneCarousel = ({ screens, label }: { screens: Screen[]; label: st
           <button
             key={screen.src.src}
             type="button"
-            onClick={() => setActive(index)}
+            onClick={() => show(index)}
             aria-label={`Screen ${index + 1} of ${screens.length}`}
             aria-current={index === active ? "true" : undefined}
             className="grid size-6 place-items-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
