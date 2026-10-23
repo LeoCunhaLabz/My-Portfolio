@@ -29,8 +29,8 @@ const config: Config = {
       },
       animation: {
         'move-left': 'move-left 1s linear infinite',
-        'move-right': 'move-right 1s linear infinite'
-
+        'move-right': 'move-right 1s linear infinite',
+        'ring-pulse': 'ring-pulse 4.5s ease-in-out infinite'
       },
       keyframes: {
         'move-left': {
@@ -47,6 +47,17 @@ const config: Config = {
           },
           '100%': {
             transform: 'translateX(0%)'
+          },
+        },
+        // Uses scale instead of transform, so the rings keep their centering translate.
+        'ring-pulse': {
+          '0%, 100%': {
+            scale: '1',
+            opacity: '1'
+          },
+          '50%': {
+            scale: '1.04',
+            opacity: '0.55'
           },
         }
       }

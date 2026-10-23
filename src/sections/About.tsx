@@ -17,7 +17,7 @@ import PostgreSQLIcon from "@/assets/icons/postgresql.svg";
 import NodeIcon from "@/assets/icons/nodejs.svg";
 import NextIcon from "@/assets/icons/nextjs.svg";
 import mapImage from "@/assets/images/map.png";
-import smileMemoji from "@/assets/images/memoji-smile.png";
+import avatarBust from "@/assets/images/avatar-bust.png";
 import { CardHeader } from "@/components/CardHeader";
 import { ToolboxItems } from "@/components/ToolboxItems";
 import { motion } from "framer-motion"
@@ -144,7 +144,7 @@ export const AboutSection = () => {
               after:rounded-full after:outline-gray-950/30">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-20 animate-ping motion-reduce:animate-none [aniamation-duration:2s]"></div>
                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10 overflow-hidden">
-                  <Image src={smileMemoji} alt="" className="size-20"/>
+                  <Image src={avatarBust} alt="" className="size-20"/>
                 </div>
               </div>
             </Card>
