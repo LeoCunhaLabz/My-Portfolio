@@ -8,7 +8,7 @@ import { posts } from "@/content/blog";
 // pages have a menu of their own: back to the home page, the case studies, the
 // blog and the contact options, which open over the page. Until a post is
 // published, Writing points to the home section.
-export const Header = ({ page = "home" }: { page?: "home" | "projects" | "blog" }) => {
+export const Header = ({ page = "home" }: { page?: "home" | "projects" | "blog" | "newsletter" }) => {
   const hasPosts = posts.length > 0;
   const writingHref = hasPosts ? "/blog" : "/#blog";
 

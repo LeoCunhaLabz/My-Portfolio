@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { NewsletterForm } from "@/components/NewsletterForm";
 import { PostEyebrow, PostTags } from "@/components/PostCard";
 import { getPost, posts, type Post } from "@/content/blog";
 import { siteUrl } from "@/content/site";
@@ -107,6 +108,10 @@ export default async function PostPage({ params }: Props) {
 
             <div className="mt-10 [&>*:first-child]:mt-0">
               <PostBody />
+            </div>
+
+            <div className="mt-20">
+              <NewsletterForm />
             </div>
 
             <nav aria-label="Keep reading" className="mt-20 flex flex-col gap-4 border-t border-white/15 pt-10 sm:flex-row sm:gap-8">
