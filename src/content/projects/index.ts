@@ -128,3 +128,11 @@ export const projects: Project[] = [
 export function getProject(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug);
 }
+
+// On the home page, "Read the case study" links to this hash, which opens the case
+// study in a modal (src/components/CaseStudyModal.tsx) instead of leaving the page.
+export const CASE_STUDY_HASH_PREFIX = "#case-";
+
+export function caseStudyHash(slug: string): string {
+  return `${CASE_STUDY_HASH_PREFIX}${slug}`;
+}

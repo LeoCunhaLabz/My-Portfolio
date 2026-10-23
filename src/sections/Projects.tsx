@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionHeader } from "@/components/sectionHeader";
+import { CaseStudyModal } from "@/components/CaseStudyModal";
 import { ProjectCard } from "@/components/ProjectCard";
 import { projects } from "@/content/projects";
 
@@ -15,7 +16,7 @@ export const ProjectsSection = () => {
         <ul className="mt-10 flex flex-col gap-8 md:mt-16">
           {projects.map((project) => (
             <li key={project.slug}>
-              <ProjectCard project={project} />
+              <ProjectCard project={project} caseStudyIn="modal" />
             </li>
           ))}
         </ul>
@@ -29,6 +30,7 @@ export const ProjectsSection = () => {
           </Link>
         </div>
       </div>
+      <CaseStudyModal />
     </section>
   );
 };

@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import ArrowUpRightIcon from "@/assets/icons/arrow-up-right.svg";
-import { ProjectEyebrow, StackList } from "@/components/ProjectEyebrow";
+import { CaseStudyHeader } from "@/components/CaseStudyHeader";
 import { getProject, projects } from "@/content/projects";
 import { Header } from "@/sections/Header";
 import { Footer } from "@/sections/Footer";
@@ -62,31 +61,7 @@ export default async function ProjectPage({ params }: Props) {
               <span>All projects</span>
             </Link>
 
-            <header className="mt-8">
-              <ProjectEyebrow project={project} />
-              <h1 className="mt-3 font-serif text-4xl md:text-6xl">{project.name}</h1>
-              <p className="mt-4 text-lg leading-relaxed text-white/80 md:text-xl">{project.headline}</p>
-              <div className="mt-6">
-                <StackList stack={project.stack} label="Main stack" />
-              </div>
-              {(project.links.length > 0 || project.linksNote) && (
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                  {project.links.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-white/15 px-5 font-semibold transition-colors hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
-                    >
-                      <span>{link.label}</span>
-                      <ArrowUpRightIcon className="size-4" aria-hidden="true" />
-                    </a>
-                  ))}
-                  {project.linksNote && <p className="text-sm text-white/50">{project.linksNote}</p>}
-                </div>
-              )}
-            </header>
+            <CaseStudyHeader project={project} className="mt-8" />
 
             <CaseStudy />
 
