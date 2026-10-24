@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CaseStudyHeader } from "@/components/CaseStudyHeader";
 import { getProject, projects } from "@/content/projects";
+import { defaultSocialImage } from "@/content/site";
 import { Header } from "@/sections/Header";
 import { Footer } from "@/sections/Footer";
 
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: project.oneLiner,
       url,
       siteName: "Leonardo Cunha",
-      images: ["/og-image.jpg"],
+      images: [defaultSocialImage],
       locale: "en_US",
       type: "article",
     },

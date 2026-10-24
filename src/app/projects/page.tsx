@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ProjectCard } from "@/components/ProjectCard";
 import { projects } from "@/content/projects";
+import { defaultSocialImage } from "@/content/site";
 import { Header } from "@/sections/Header";
 import { Footer } from "@/sections/Footer";
 
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     description,
     url: "/projects",
     siteName: "Leonardo Cunha",
-    images: ["/og-image.jpg"],
+    images: [defaultSocialImage],
     locale: "en_US",
     type: "website",
   },
