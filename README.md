@@ -112,7 +112,7 @@ Drafts never reach production: `src/content/blog/index.ts` includes them only in
 
 ## Newsletter
 
-Readers sign up at the end of each post and of `/blog` ([#6](https://github.com/LeoCunhaLabz/My-Portfolio/issues/6)). The site only asks for the email address and keeps nothing: `src/components/NewsletterForm.tsx` posts it to `/api/newsletter`, which asks Brevo to create the contact through double opt-in. Brevo then sends the confirmation email, and the reader joins the list only after clicking its link, which leads to `/newsletter/confirmed`. The form reports success only once Brevo has accepted the request. Unsubscribe links, the list itself and its export live in Brevo.
+Readers sign up at the end of each post and of `/blog` ([#6](https://github.com/LeoCunhaLabz/My-Portfolio/issues/6)). The site only asks for the email address and keeps nothing: `src/components/NewsletterForm.tsx` posts it to `/api/newsletter`, which asks Brevo to create the contact through double opt-in, unless the address is already on the list. Brevo then sends the confirmation email, and the reader joins the list only after clicking its link, which leads to `/newsletter/confirmed`. The form reports success only once Brevo has accepted the request. Unsubscribe links, the list itself and its export live in Brevo.
 
 Abuse protection: a hidden field that only bots fill in, and a Vercel Firewall rate limit rule on `/api/newsletter` (5 requests per 10 minutes per IP), set in the dashboard. The logs record Brevo's response code, never the address.
 
