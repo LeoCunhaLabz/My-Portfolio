@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { PostEyebrow, PostTags } from "@/components/PostCard";
 import { getPost, posts, type Post } from "@/content/blog";
-import { siteUrl } from "@/content/site";
+import { defaultSocialImage, siteUrl } from "@/content/site";
 import { Header } from "@/sections/Header";
 import { Footer } from "@/sections/Footer";
 
@@ -19,7 +19,7 @@ export function generateStaticParams() {
 }
 
 const socialImage = (post: Post) =>
-  post.socialImage ?? { src: "/og-image.jpg", alt: "Leonardo Cunha, Software Engineer building reliable SaaS products." };
+  post.socialImage ?? { src: defaultSocialImage.url, alt: defaultSocialImage.alt };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;

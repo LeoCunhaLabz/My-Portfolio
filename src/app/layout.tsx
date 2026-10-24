@@ -4,7 +4,7 @@ import { Inter, Calistoga } from 'next/font/google'
 import "./globals.css";
 import { twMerge } from "tailwind-merge";
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { siteUrl } from "@/content/site";
+import { defaultSocialImage, siteUrl } from "@/content/site";
 import { SiteAnalytics } from "@/components/SiteAnalytics";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
@@ -23,14 +23,7 @@ export const metadata: Metadata = {
       "Software Engineer building reliable SaaS products with TypeScript, Node.js, and React: product interfaces, APIs, integrations, and AI-powered workflows.",
     url: "/",
     siteName: "Leonardo Cunha",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Leonardo Cunha, Software Engineer building reliable SaaS products.",
-      },
-    ],
+    images: [defaultSocialImage],
     locale: "en_US",
     type: "website",
   },

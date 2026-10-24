@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { NewsletterForm } from "@/components/NewsletterForm";
 import { PostCard } from "@/components/PostCard";
 import { posts } from "@/content/blog";
+import { defaultSocialImage } from "@/content/site";
 import { Header } from "@/sections/Header";
 import { Footer } from "@/sections/Footer";
 
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     description,
     url: "/blog",
     siteName: "Leonardo Cunha",
-    images: ["/og-image.jpg"],
+    images: [defaultSocialImage],
     locale: "en_US",
     type: "website",
   },
