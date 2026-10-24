@@ -6,7 +6,8 @@ import { siteUrl } from "@/content/site";
 
 export type NewsletterStatus = "pending" | "already_subscribed" | "invalid_email" | "error";
 
-const brevoDoiUrl = "https://api.brevo.com/v3/contacts/doubleOptinConfirmation";
+const brevoContactsUrl = "https://api.brevo.com/v3/contacts";
+const brevoDoiUrl = `${brevoContactsUrl}/doubleOptinConfirmation`;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const reply = (status: NewsletterStatus, httpStatus: number) => Response.json({ status }, { status: httpStatus });
@@ -42,18 +43,36 @@ export async function POST(request: Request) {
     return reply("error", 503);
   }
 
+  const headers = { "api-key": apiKey, accept: "application/json" };
+  // One deadline for both calls to Brevo.
+  const signal = AbortSignal.timeout(8000);
+
   let response: Response;
   try {
+    // Brevo sends the confirmation email again even to people who already
+    // confirmed, so look the address up first. Anyone not on the list, or who
+    // unsubscribed, goes through the confirmation again.
+    const existing = await fetch(`${brevoContactsUrl}/${encodeURIComponent(email)}?identifierType=email_id`, {
+      headers,
+      signal,
+    });
+    if (existing.ok) {
+      const contact: { listIds?: number[]; emailBlacklisted?: boolean } = await existing.json();
+      if (contact.listIds?.includes(listId) && !contact.emailBlacklisted) return reply("already_subscribed", 409);
+    } else if (existing.status !== 404) {
+      console.error("newsletter: Brevo contact lookup failed", existing.status);
+    }
+
     response = await fetch(brevoDoiUrl, {
       method: "POST",
-      headers: { "api-key": apiKey, "content-type": "application/json", accept: "application/json" },
+      headers: { ...headers, "content-type": "application/json" },
       body: JSON.stringify({
         email,
         includeListIds: [listId],
         templateId,
         redirectionUrl: confirmedUrl(),
       }),
-      signal: AbortSignal.timeout(8000),
+      signal,
     });
   } catch (error) {
     console.error("newsletter: Brevo did not answer", error instanceof Error ? error.name : "unknown error");
